@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{44149d4b-5893-4e01-8ec1-de0e2cb12277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Memory">
+      <UniqueIdentifier>{2f456c6c-4d71-47ff-90e3-662bcfe296c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{cdf34156-06f9-4750-a66a-273ce76e29e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{92d33303-7dce-4a0c-9262-a257516a34b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mod">
+      <UniqueIdentifier>{286ead97-45b0-46ec-893a-267730c0d13f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mod">
+      <UniqueIdentifier>{b76232de-1bc0-4a5e-aff5-1bb9e67a00be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod\Camera.cpp">
+      <Filter>Source Files\Mod</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod\Config.cpp">
+      <Filter>Source Files\Mod</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod\Mod.cpp">
+      <Filter>Source Files\Mod</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\Hooking.Patterns.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory\MemMgr.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Hooks.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Hooks.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\prism.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Hooking.Patterns.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\MemMgr.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod\Camera.h">
+      <Filter>Header Files\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod\Config.h">
+      <Filter>Header Files\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod\Mod.h">
+      <Filter>Header Files\Mod</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ets2.def" />
+    <None Include="ats.def" />
+  </ItemGroup>
+</Project>

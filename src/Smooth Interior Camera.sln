@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Smooth Interior Camera", "Smooth Interior Camera\Smooth Interior Camera.vcxproj", "{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Settings", "Settings\Settings.csproj", "{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ATS Debug|Any CPU = ATS Debug|Any CPU
+		ATS Debug|x64 = ATS Debug|x64
+		ATS Release|Any CPU = ATS Release|Any CPU
+		ATS Release|x64 = ATS Release|x64
+		ETS 2 Debug|Any CPU = ETS 2 Debug|Any CPU
+		ETS 2 Debug|x64 = ETS 2 Debug|x64
+		ETS 2 Release|Any CPU = ETS 2 Release|Any CPU
+		ETS 2 Release|x64 = ETS 2 Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ATS Debug|Any CPU.ActiveCfg = ATS Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ATS Debug|x64.ActiveCfg = ATS Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ATS Debug|x64.Build.0 = ATS Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ATS Release|Any CPU.ActiveCfg = ATS Release|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ATS Release|x64.ActiveCfg = ATS Release|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ATS Release|x64.Build.0 = ATS Release|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Debug|Any CPU.ActiveCfg = ETS 2 Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Debug|x64.ActiveCfg = ETS 2 Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Debug|x64.Build.0 = ETS 2 Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Release|Any CPU.ActiveCfg = ATS Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Release|Any CPU.Build.0 = ATS Debug|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Release|x64.ActiveCfg = ETS 2 Release|x64
+		{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}.ETS 2 Release|x64.Build.0 = ETS 2 Release|x64
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Debug|x64.ActiveCfg = Debug|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Debug|x64.Build.0 = Debug|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Release|Any CPU.Build.0 = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Release|x64.ActiveCfg = Debug|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ATS Release|x64.Build.0 = Debug|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Debug|Any CPU.Build.0 = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Debug|x64.ActiveCfg = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Debug|x64.Build.0 = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Release|Any CPU.Build.0 = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Release|x64.ActiveCfg = Release|Any CPU
+		{08D200DA-EBC3-4D45-B17F-7336B0C4CCB4}.ETS 2 Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8AE45225-AE98-4944-89E7-D15CB58C4849}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,4 @@
+LIBRARY ats_sic
+EXPORTS
+scs_telemetry_init=scs_telemetry_init
+scs_telemetry_shutdown=scs_telemetry_shutdown
