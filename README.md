@@ -19,7 +19,7 @@ Camera mod for ETS 2 and ATS
 - Universal for every keys settings (default is for numpad)
 - Possibility to change predefined camera positions
 
-## Keyboard controls
+## Keyboard
 
 - **INSERT** - enable/disable mod;
 - **DELETE** - change predefined positions of camera;
