@@ -2,6 +2,10 @@
 
 Camera mod for ETS 2 and ATS
 
+## Video
+
+[![Image](http://img.youtube.com/vi/M6WYAOJAsMQ/0.jpg)](http://www.youtube.com/watch?v=M6WYAOJAsMQ)
+
 ## Download
 
 [ETS 2](https://github.com/Harry09/Smooth-Interior-Camera)
