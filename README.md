@@ -1,6 +1,6 @@
 # Smooth Interior Camera
 
-Camera mod for ETS 2 and ATS
+Camera mod for ETS 2 and ATS. Best experience with vsync and stable 60 fps
 
 ## Video
 
