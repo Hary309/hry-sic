@@ -35,6 +35,6 @@ Camera mod for ETS 2 and ATS
 
 ## How to change predefined camera position
 
-1. Press **Delete**
+1. Press **Delete** on keyboard
 1. Set the position of the camera (with mouse)
 1. Press key which you want look here
