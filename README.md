@@ -2,6 +2,10 @@
 
 Camera mod for ETS 2 and ATS. Best experience with vsync and stable 60 fps
 
+## Donate
+
+https://www.paypal.me/PiotrKrupa
+
 ## Video
 
 [![Image](http://img.youtube.com/vi/M6WYAOJAsMQ/0.jpg)](http://www.youtube.com/watch?v=M6WYAOJAsMQ)
