@@ -87,12 +87,6 @@ void Config::Load()
 	std::cout << "Version: " << version << "\n";
 #endif
 
-	if (version < 1008)
-	{
-		CreateDefaultFile();
-		return;
-	}
-
 	if (!json["active"].is_null())
 		m_active = json["active"];
 	else
