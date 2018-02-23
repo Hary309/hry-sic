@@ -10,7 +10,9 @@
 #include "Hooks.h"
 
 #include <Windows.h>
-#include <cstdio>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #include <jitasm.h>
 
@@ -30,6 +32,7 @@ namespace Hooks
 	{
 		if (!pGameCam)
 			return;
+
 		auto pCam = g_pMod->GetCamera();
 		pCam->UpdateGameCamera(pGameCam);
 
@@ -70,7 +73,7 @@ namespace Hooks
 						rx = Config::Get()->GetValue((Config::CameraPos)i);
 
 #ifdef TESTING
-						printf("New value for %f is %f\n", pGameCam->m_rx_predef, rx);
+						std::cout << "New value for '" << pGameCam->m_rx_predef << "' is '" << rx << "'\n";
 #endif
 
 						break;
@@ -111,16 +114,30 @@ namespace Hooks
 		}
 	} Asm_CameraEvent;
 
+	uintptr_t CameraEvent_addr;
+	uint8_t CameraEvent_pattern[] = { 0x8B, 0x81, 0xB0, 0x02, 0x00, 0x00, 0x89, 0x81, 0x48, 0x03, 0x00, 0x00, 0x8B, 0x81, 0xB4, 0x02, 0x00, 0x00, 0x89, 0x81, 0x4C, 0x03, 0x00, 0x00, 0xC7, 0x81, 0xAC, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
 	bool Hook_CameraEvent()
 	{
-		auto pattern = hook::pattern("8B  81 B0 02 00 00 89 81 48  03 00 00 8B 81 B4 02 00  00 89 81 4C 03 00 00 C7  81 AC 02 00 00 00 00 00  00");
+		std::stringstream patternStr; 
+
+		for (int i = 0; i < sizeof(CameraEvent_pattern); ++i)
+		{
+			patternStr << std::setfill('0') << std::setw(2) << std::hex << static_cast<int>(CameraEvent_pattern[i]) << " ";
+		}
+
+		auto pattern = hook::pattern(patternStr.str().c_str());
 
 		if (pattern.size() > 0)
 		{
-			auto pFunc = pattern.count(1).get(0).get<void>(0);
+			CameraEvent_addr = reinterpret_cast<uintptr_t>(pattern.count(1).get(0).get<void>(0));
+
+#ifdef TESTING
+			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
+#endif
 
 			Asm_CameraEvent.callAddr = (uintptr_t)CameraEvent;
-			MemMgr::LongJmpHook((uintptr_t)pFunc, (uintptr_t)Asm_CameraEvent.GetCode());
+			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent.GetCode());
 
 			return true;
 		}
@@ -128,7 +145,7 @@ namespace Hooks
 		{
 			Mod::Get()->Log(SCS_LOG_TYPE_error, "Data structure is incorrect!");
 #ifdef TESTING
-			printf("Hook for CameraEvent not found!\n");
+			std::cout << "Hook for CameraEvent not found!\n";
 #endif
 			return false;
 		}
@@ -136,6 +153,10 @@ namespace Hooks
 
 	bool Init()
 	{
+#ifdef  TESTING
+		std::cout << "Initializing hooks...\n";
+#endif 
+
 		bool inited = true;
 
 		if (!Hook_CameraEvent())
@@ -143,11 +164,23 @@ namespace Hooks
 
 #ifdef TESTING
 		if (inited)
-			printf("Hooks initialized!\n");
+			std::cout << "Hooks initialized!\n";
 #endif
 
 		g_pMod = Mod::Get();
 
 		return inited;
+	}
+
+	void Unhook()
+	{
+		if (CameraEvent_addr != 0)
+		{
+#ifdef TESTING
+			std::cout << "Unhooking...\n";
+#endif
+
+			memcpy((uint8_t*)CameraEvent_addr, CameraEvent_pattern, sizeof(CameraEvent_pattern));
+		}
 	}
 }

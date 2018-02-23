@@ -21,7 +21,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E9D259A8-AB47-4898-A8FF-B32CAC2C766C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>ETS2TEST</RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

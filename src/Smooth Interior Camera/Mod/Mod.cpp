@@ -11,6 +11,7 @@
 
 #include <cstdio>
 #include <Windows.h>
+#include <iostream>
 
 #include "Memory\MemMgr.h"
 #include "Game\Hooks.h"
@@ -27,6 +28,7 @@ Mod::Mod()
 
 Mod::~Mod()
 {
+	Hooks::Unhook();
 }
 
 int Mod::Init(scs_telemetry_init_params_v100_t* scsTelemetry)
@@ -46,7 +48,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t* scsTelemetry)
 #endif
 
 #ifdef TESTING
-	printf("Base address = %I64u\n", (uintptr_t)(GetModuleHandle(0) - 0x000140000000));
+	std::cout << "Base address = " << std::hex << std::uppercase << reinterpret_cast<uintptr_t>(GetModuleHandle(0) - 0x000140000000) << "\n";
 #endif
 
 	if (!Hooks::Init())
@@ -165,16 +167,14 @@ void Mod::Log(scs_log_type_t logType, const char *str, ...)
 	vsnprintf(buffer, 256, str, args);
 	va_end(args);
 
-	char buffer2[256];
-
-	sprintf(buffer2, "[SIC] %s", buffer);
+	std::string strBuffer = "[SIC] " + std::string(buffer);
 
 #ifdef TESTING
-	puts(buffer2);
+	std::cout << strBuffer << "\n";
 #endif
 
 	if (m_logFunc)
-		m_logFunc(logType, buffer2);
+		m_logFunc(logType, strBuffer.c_str());
 }
 
 void Mod::DisableConfigurating()

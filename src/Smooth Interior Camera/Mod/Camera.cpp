@@ -10,7 +10,7 @@
 #include "Camera.h"
 
 #include <Windows.h>
-#include <cstdio>
+#include <iostream>
 
 #include "Common.h"
 #include "Config.h"
@@ -51,7 +51,7 @@ void Camera::MoveTo(float rx)
 	m_stopInNextPulse = false;
 
 #ifdef TESTING
-	printf("Moving to %f\n", m_rxEnd);
+	std::cout << "Moving to " << m_rxEnd << "\n";
 #endif
 
 	m_anim = true;

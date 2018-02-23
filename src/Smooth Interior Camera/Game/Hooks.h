@@ -12,5 +12,6 @@
 namespace Hooks
 {
 	bool Init();
+	void Unhook();
 };
 

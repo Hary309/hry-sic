@@ -9,7 +9,7 @@
 
 #include "Config.h"
 
-#include <cstdio>
+#include <iostream>
 #include <string>
 #include <fstream>
 
@@ -84,7 +84,7 @@ void Config::Load()
 	int version = json["version"];
 
 #ifdef TESTING
-	printf("Version: %d\n", version);
+	std::cout << "Version: " << version << "\n";
 #endif
 
 	if (version < 1008)
@@ -114,16 +114,16 @@ void Config::Load()
 		Save();
 
 #ifdef TESTING
-	printf("active: %s\n", m_active ? "true" : "false");
-	printf("speed: %d\n", m_speed);
-	printf("disable_shortcuts: %s\n", m_disableShortcuts ? "true" : "false");
-	printf("rotation_style: %d\n", m_rotationStyle);
-	printf("interior_look_forward: %f\n", m_interiorCamPos[INTERIOR_LOOK_FORWARD]);
-	printf("interior_look_up_right: %f\n", m_interiorCamPos[INTERIOR_LOOK_UP_RIGHT]);
-	printf("interior_look_up_left: %f\n", m_interiorCamPos[INTERIOR_LOOK_UP_LEFT]);
-	printf("interior_look_right: %f\n", m_interiorCamPos[INTERIOR_LOOK_RIGHT]);
-	printf("interior_look_left: %f\n", m_interiorCamPos[INTERIOR_LOOK_LEFT]);
-	printf("interior_look_up_middle: %f\n\n", m_interiorCamPos[INTERIOR_LOOK_UP_MIDDLE]);
+	std::cout << "active: " << (m_active ? "true" : "false") << "\n";
+	std::cout << "speed: " << m_speed << "\n";
+	std::cout << "disable_shortcuts: " << (m_disableShortcuts ? "true" : "false") << "\n";
+	std::cout << "rotation_style: " << m_rotationStyle << "\n";
+	std::cout << "interior_look_forward: " << m_interiorCamPos[INTERIOR_LOOK_FORWARD] << "\n";
+	std::cout << "interior_look_up_right: " << m_interiorCamPos[INTERIOR_LOOK_UP_RIGHT] << "\n";
+	std::cout << "interior_look_up_left: " << m_interiorCamPos[INTERIOR_LOOK_UP_LEFT] << "\n";
+	std::cout << "interior_look_right: " << m_interiorCamPos[INTERIOR_LOOK_RIGHT] << "\n";
+	std::cout << "interior_look_left: " << m_interiorCamPos[INTERIOR_LOOK_LEFT] << "\n";
+	std::cout << "interior_look_up_middle: " << m_interiorCamPos[INTERIOR_LOOK_UP_MIDDLE] << "\n\n";
 #endif
 }
 
