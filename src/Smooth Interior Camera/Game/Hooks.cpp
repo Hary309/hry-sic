@@ -16,12 +16,12 @@
 
 #include <jitasm.h>
 
-#include "Memory\Hooking.Patterns.h"
-#include "Memory\MemMgr.h"
-#include "Mod\Mod.h"
-#include "Mod\Camera.h"
-#include "Mod\Config.h"
-#include "Game\prism.h"
+#include "Memory/Hooking.Patterns.h"
+#include "Memory/MemMgr.h"
+#include "Mod/Mod.h"
+#include "Mod/Camera.h"
+#include "Mod/Config.h"
+#include "Game/prism.h"
 #include "Common.h"
 
 namespace Hooks
@@ -126,7 +126,7 @@ namespace Hooks
 			patternStr << std::setfill('0') << std::setw(2) << std::hex << static_cast<int>(CameraEvent_pattern[i]) << " ";
 		}
 
-		auto pattern = hook::pattern(patternStr.str().c_str());
+		auto pattern = hook::pattern(static_cast<const char*>(patternStr.str().c_str()));
 
 		if (pattern.size() > 0)
 		{

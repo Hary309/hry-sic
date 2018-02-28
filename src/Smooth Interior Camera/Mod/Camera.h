@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "Game\prism.h"
+#include "Game/prism.h"
 
 class Camera
 {

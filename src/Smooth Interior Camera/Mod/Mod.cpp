@@ -13,10 +13,10 @@
 #include <Windows.h>
 #include <iostream>
 
-#include "Memory\MemMgr.h"
-#include "Game\Hooks.h"
-#include "Mod\Camera.h"
-#include "Mod\Config.h"
+#include "Memory/MemMgr.h"
+#include "Game/Hooks.h"
+#include "Mod/Camera.h"
+#include "Mod/Config.h"
 #include "Common.h"
 
 Mod *Mod::s_pInst;
