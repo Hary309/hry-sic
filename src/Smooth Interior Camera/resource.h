@@ -19,9 +19,9 @@
 // or define ATS_R if compiling for ATS
 #define ATS_R
 
-#define CURRENT_VERSION "1.2.0.0"
-#define CURRENT_VERSION_SHORT 1200
-#define CURRENT_VERSION_NUMBER 1,2,0,0
+#define CURRENT_VERSION "1.2.0.1"
+#define CURRENT_VERSION_SHORT 1201
+#define CURRENT_VERSION_NUMBER 1,2,0,1
 
 #ifdef ETS2_R
 #define GAME_NAME "Euro Truck Simulator 2"
