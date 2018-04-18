@@ -98,8 +98,12 @@ void Mod::Pulse()
 	if (IsActive())
 		m_pCam->Pulse();
 
+
 	if (GetAsyncKeyState(VK_INSERT))
 	{
+		if (m_config.m_disableShortcuts)
+			return;
+
 		if (GetForegroundWindow() != GetActiveWindow())
 			return;
 
@@ -119,10 +123,10 @@ void Mod::Pulse()
 
 	if (GetAsyncKeyState(VK_DELETE))
 	{
-		if (GetForegroundWindow() != GetActiveWindow())
+		if (m_config.m_disableShortcuts)
 			return;
 
-		if (!m_active)
+		if (GetForegroundWindow() != GetActiveWindow())
 			return;
 
 		if (m_tDelay + 1000 < GetTickCount())
@@ -140,10 +144,10 @@ void Mod::Pulse()
 
 	if (GetAsyncKeyState(VK_HOME))
 	{
-		if (GetForegroundWindow() != GetActiveWindow())
+		if (m_config.m_disableShortcuts)
 			return;
 
-		if (!m_active)
+		if (GetForegroundWindow() != GetActiveWindow())
 			return;
 
 		if (m_tDelay + 1000 < GetTickCount())
