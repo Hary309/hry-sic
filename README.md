@@ -19,7 +19,7 @@ https://www.paypal.me/PiotrKrupa
 - Universal for every keys settings (default is for numpad)
 - Possibility to change predefined camera positions
 
-## Keyboard
+# Hotkeys
 
 - **INSERT** - enable/disable mod;
 - **DELETE** - change predefined positions of camera;
