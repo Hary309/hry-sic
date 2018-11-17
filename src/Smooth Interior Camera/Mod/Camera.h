@@ -1,4 +1,7 @@
 /** @file Camera.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
@@ -49,4 +52,3 @@ public:
 
 	bool IsAnimation() { return m_anim; }
 };
-
