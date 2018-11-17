@@ -31,7 +31,7 @@ Mod::~Mod()
 	Hooks::Unhook();
 }
 
-int Mod::Init(scs_telemetry_init_params_v100_t* scsTelemetry)
+int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 {
 #ifdef TESTING
 	AllocConsole();
@@ -42,9 +42,9 @@ int Mod::Init(scs_telemetry_init_params_v100_t* scsTelemetry)
 	m_logFunc = scsTelemetry->common.log;
 	
 #ifdef ATS
-	std::string forumLink = "https://forum.scssoft.com/viewtopic.php?t=248870";
+	const char* forumLink = "https://forum.scssoft.com/viewtopic.php?t=248870";
 #elif ETS2
-	std::string forumLink = "https://forum.scssoft.com/viewtopic.php?t=223989";
+	const char* forumLink = "https://forum.scssoft.com/viewtopic.php?t=223989";
 #endif
 
 #ifdef TESTING
@@ -53,7 +53,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t* scsTelemetry)
 
 	if (!Hooks::Init())
 	{
-		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check (%s) for updates", forumLink.c_str());
+		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check (%s) for updates", forumLink);
 		return SCS_RESULT_unsupported;
 	}
 
@@ -97,7 +97,6 @@ void Mod::Pulse()
 {
 	if (IsActive())
 		m_pCam->Pulse();
-
 
 	if (GetAsyncKeyState(VK_INSERT))
 	{

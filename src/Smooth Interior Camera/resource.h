@@ -14,24 +14,7 @@
 // Next default values for new objects
 // 
 
-// define ETS2_R if compiling for ETS 2
-//#define ETS2_R
-// or define ATS_R if compiling for ATS
-#define ATS_R
-
-#define CURRENT_VERSION "1.2.0.1"
-#define CURRENT_VERSION_SHORT 1201
-#define CURRENT_VERSION_NUMBER 1,2,0,1
-
-#ifdef ETS2_R
-#define GAME_NAME "Euro Truck Simulator 2"
-#define GAME_NAME_SHORT "ets2"
-#define SUPPORTED_VERSION "1.27.xs and newer"
-#elif defined(ATS_R)
-#define GAME_NAME "American Truck Simulator"
-#define GAME_NAME_SHORT "ats"
-#define SUPPORTED_VERSION "1.6.xs and newer"
-#endif
+#include "Version.h"
 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

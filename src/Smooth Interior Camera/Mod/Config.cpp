@@ -15,7 +15,6 @@
 
 #include <json.hpp>
 
-#include "resource.h"
 #include "Common.h"
 #include "Mod.h"
 

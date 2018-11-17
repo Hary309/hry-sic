@@ -75,7 +75,7 @@ void Camera::Pulse()
 
 		if (Config::Get()->m_rotationStyle == Config::SMOOTH)
 		{
-			if (abs(m_rxCurr - m_rxEnd) > m_delta / 2 && m_movingStage == 1)
+			if (abs(m_rxCurr - m_rxEnd) >= m_delta / 2 && m_movingStage == 1)
 			{
 				m_speed += m_acceleration;
 			}

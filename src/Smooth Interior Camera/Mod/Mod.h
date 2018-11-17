@@ -45,7 +45,7 @@ public:
 	void Log(scs_log_type_t logType, const char *str, ...);
 
 	bool IsActive()			{ return m_active; }
-	bool IsConfigurating()	{ return m_configurating; }
+	bool IsConfiguring()	{ return m_configurating; }
 	bool IsPlaying()		{ return m_playing; }
 
 	void DisableConfigurating();
