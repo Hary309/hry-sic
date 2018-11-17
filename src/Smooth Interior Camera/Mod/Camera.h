@@ -1,11 +1,4 @@
-/*
-*********************************************************************
-* File			: Camera.h
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file Camera.h
 
 #pragma once
 

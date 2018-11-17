@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: resource.h
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file resource.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.

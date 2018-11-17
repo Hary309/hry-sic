@@ -1,4 +1,7 @@
-
+; ** @file HooksASM.asm
+; ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+; ** @license MIT License
+; **
 
 extern CameraEvent_Address: qword
 
