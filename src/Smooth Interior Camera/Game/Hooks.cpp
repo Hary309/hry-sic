@@ -14,9 +14,6 @@
 #include <sstream>
 #include <iomanip>
 
-#include <jitasm.h>
-
-#include "Version.h"
 #include "Memory/Hooking.Patterns.h"
 #include "Memory/MemMgr.h"
 #include "Mod/Mod.h"
@@ -24,6 +21,7 @@
 #include "Mod/Config.h"
 #include "Game/prism.h"
 #include "Common.h"
+#include "Version.h"
 
 namespace Hooks
 {
@@ -89,32 +87,6 @@ namespace Hooks
 		}
 	}
 
-	struct : jitasm::Frontend
-	{
-		uintptr_t callAddr;
-
-		void InternalMain() override
-		{
-			push(rax);
-			push(rcx);
-			push(rdx);
-			push(r8);
-
-			{
-				mov(rax, callAddr);
-				call(rax);
-			}
-
-			pop(r8);
-			pop(rdx);
-			pop(rcx);
-			pop(rax);
-
-			add(rsp, 0x38);
-			ret();
-		}
-	} Asm_CameraEvent;
-
 	uintptr_t CameraEvent_addr;
 
 #if defined(HOOK_V1)
@@ -122,6 +94,12 @@ namespace Hooks
 #elif defined(HOOK_V2)
 	auto CameraEvent_pattern = "8B 81 B8 02 00 00 89 81 50 03 00 00 8B 81 BC 02 00 00 89 81 54 03 00 00 C7 81 B4 02 00 00 00 00 00 00";
 #endif
+
+	extern "C"
+	{
+		ptrdiff_t CameraEvent_Address = 0;
+		void Asm_CameraEvent();
+	}
 
 	bool Hook_CameraEvent()
 	{
@@ -135,8 +113,8 @@ namespace Hooks
 			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
 		#endif
 
-			Asm_CameraEvent.callAddr = (uintptr_t)CameraEvent;
-			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent.GetCode());
+			CameraEvent_Address = (uintptr_t)CameraEvent;
+			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
 
 			return true;
 		}

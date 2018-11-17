@@ -99,4 +99,9 @@
     <None Include="ets2.def" />
     <None Include="ats.def" />
   </ItemGroup>
+  <ItemGroup>
+    <MASM Include="Game\HooksASM.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+  </ItemGroup>
 </Project>
