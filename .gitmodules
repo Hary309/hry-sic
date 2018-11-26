@@ -4,6 +4,3 @@
 [submodule "src/vendor/json"]
 	path = src/vendor/json
 	url = git://github.com/nlohmann/json.git
-[submodule "src/vendor/jitasm"]
-	path = src/vendor/jitasm
-	url = git://github.com/hikaru-i/jitasm.git

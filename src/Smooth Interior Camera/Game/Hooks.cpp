@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: Hooks.cpp
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file Hooks.cpp
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #include "Hooks.h"
 
@@ -14,8 +10,6 @@
 #include <sstream>
 #include <iomanip>
 
-#include <jitasm.h>
-
 #include "Memory/Hooking.Patterns.h"
 #include "Memory/MemMgr.h"
 #include "Mod/Mod.h"
@@ -23,6 +17,7 @@
 #include "Mod/Config.h"
 #include "Game/prism.h"
 #include "Common.h"
+#include "Version.h"
 
 namespace Hooks
 {
@@ -42,7 +37,7 @@ namespace Hooks
 			pGameCam->m_ry = pGameCam->m_ry_predef;
 			pGameCam->m_keyboardEv = false;
 		}
-		else if (g_pMod->IsConfigurating())
+		else if (g_pMod->IsConfiguring())
 		{
 			if (pGameCam->m_keyboardEv)
 			{
@@ -72,9 +67,9 @@ namespace Hooks
 					{
 						rx = Config::Get()->GetValue((Config::CameraPos)i);
 
-#ifdef TESTING
+					#ifdef TESTING
 						std::cout << "New value for '" << pGameCam->m_rx_predef << "' is '" << rx << "'\n";
-#endif
+					#endif
 
 						break;
 					}
@@ -88,88 +83,63 @@ namespace Hooks
 		}
 	}
 
-	struct : jitasm::Frontend
-	{
-		uintptr_t callAddr;
-
-		void InternalMain() override
-		{
-			push(rax);
-			push(rcx);
-			push(rdx);
-			push(r8);
-
-			{
-				mov(rax, callAddr);
-				call(rax);
-			}
-
-			pop(r8);
-			pop(rdx);
-			pop(rcx);
-			pop(rax);
-
-			add(rsp, 0x38);
-			ret();
-		}
-	} Asm_CameraEvent;
-
 	uintptr_t CameraEvent_addr;
-	uint8_t CameraEvent_pattern[] = { 0x8B, 0x81, 0xB0, 0x02, 0x00, 0x00, 0x89, 0x81, 0x48, 0x03, 0x00, 0x00, 0x8B, 0x81, 0xB4, 0x02, 0x00, 0x00, 0x89, 0x81, 0x4C, 0x03, 0x00, 0x00, 0xC7, 0x81, 0xAC, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+#if defined(HOOK_V1)
+	auto CameraEvent_pattern = "8B 81 B0 02 00 00 89 81 48 03 00 00 8B 81 B4 02 00 00 89 81 4C 03 00 00 C7 81 AC 02 00 00 00 00 00 00";
+#elif defined(HOOK_V2)
+	auto CameraEvent_pattern = "8B 81 B8 02 00 00 89 81 50 03 00 00 8B 81 BC 02 00 00 89 81 54 03 00 00 C7 81 B4 02 00 00 00 00 00 00";
+#endif
+
+	extern "C"
+	{
+		ptrdiff_t CameraEvent_Address = 0;
+		void Asm_CameraEvent();
+	}
 
 	bool Hook_CameraEvent()
 	{
-		std::stringstream patternStr; 
-
-		for (int i = 0; i < sizeof(CameraEvent_pattern); ++i)
-		{
-			patternStr << std::setfill('0') << std::setw(2) << std::hex << static_cast<int>(CameraEvent_pattern[i]) << " ";
-		}
-
-		auto pattern = hook::pattern(static_cast<const char*>(patternStr.str().c_str()));
+		auto pattern = hook::pattern(CameraEvent_pattern);
 
 		if (pattern.size() > 0)
 		{
 			CameraEvent_addr = reinterpret_cast<uintptr_t>(pattern.count(1).get(0).get<void>(0));
 
-#ifdef TESTING
+		#ifdef TESTING
 			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
-#endif
+		#endif
 
-			Asm_CameraEvent.callAddr = (uintptr_t)CameraEvent;
-			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent.GetCode());
+			CameraEvent_Address = (uintptr_t)CameraEvent;
+			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
 
 			return true;
 		}
 		else
 		{
 			Mod::Get()->Log(SCS_LOG_TYPE_error, "Data structure is incorrect!");
-#ifdef TESTING
+		#ifdef TESTING
 			std::cout << "Hook for CameraEvent not found!\n";
-#endif
+		#endif
 			return false;
 		}
 	}
 
 	bool Init()
 	{
-#ifdef  TESTING
+	#ifdef TESTING
 		std::cout << "Initializing hooks...\n";
-#endif 
-
-		bool inited = true;
+	#endif 
 
 		if (!Hook_CameraEvent())
-			inited = false;
+			return false;
 
-#ifdef TESTING
-		if (inited)
-			std::cout << "Hooks initialized!\n";
-#endif
+	#ifdef TESTING
+		std::cout << "Hooks initialized!\n";
+	#endif
 
 		g_pMod = Mod::Get();
 
-		return inited;
+		return true;
 	}
 
 	void Unhook()

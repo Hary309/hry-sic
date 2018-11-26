@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -86,6 +86,9 @@
     <ClInclude Include="Mod\Mod.h">
       <Filter>Header Files\Mod</Filter>
     </ClInclude>
+    <ClInclude Include="Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
@@ -95,5 +98,10 @@
   <ItemGroup>
     <None Include="ets2.def" />
     <None Include="ats.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="Game\HooksASM.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

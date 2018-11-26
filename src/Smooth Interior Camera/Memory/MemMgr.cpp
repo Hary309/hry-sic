@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: MemMgr.cpp
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file MemMgr.cpp
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #include "MemMgr.h"
 
@@ -17,7 +13,7 @@
 	xchg qword ptr ss:[rsp], rax
 	ret
 */
-BYTE g_jmpHook[] = { 0x50, 0x48, 0xB8, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0x48, 0x87, 0x04, 0x24, 0xC3 };
+unsigned char g_jmpHook[] = { 0x50, 0x48, 0xB8, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0x48, 0x87, 0x04, 0x24, 0xC3 };
 
 void MemMgr::UnprotectMemory(uintptr_t addr, size_t size)
 {

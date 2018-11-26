@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: Mod.h
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file Mod.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
@@ -20,19 +16,19 @@
 class Mod
 {
 private:
-	std::unique_ptr<Camera>				m_pCam;
-	Config								m_config;
-	bool								m_active = true;
+	std::unique_ptr<Camera>	m_pCam;
+	Config					m_config;
+	bool					m_active = true;
 
-	bool								m_configurating = false;
+	bool					m_configurating = false;
 
-	bool								m_playing = false;
+	bool					m_playing = false;
 
-	unsigned							m_tDelay;
+	unsigned				m_tDelay;
 
-	scs_log_t							m_logFunc;
+	scs_log_t				m_logFunc;
 
-	static Mod							*s_pInst;
+	static Mod				*s_pInst;
 
 public:
 	Mod();
@@ -45,7 +41,7 @@ public:
 	void Log(scs_log_type_t logType, const char *str, ...);
 
 	bool IsActive()			{ return m_active; }
-	bool IsConfigurating()	{ return m_configurating; }
+	bool IsConfiguring()	{ return m_configurating; }
 	bool IsPlaying()		{ return m_playing; }
 
 	void DisableConfigurating();

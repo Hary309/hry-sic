@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: Config.h
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file Config.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 

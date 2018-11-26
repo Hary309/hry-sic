@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: Camera.h
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file Camera.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
@@ -56,4 +52,3 @@ public:
 
 	bool IsAnimation() { return m_anim; }
 };
-

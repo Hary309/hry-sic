@@ -1,11 +1,7 @@
-/*
-*********************************************************************
-* File			: Config.cpp
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file Config.cpp
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #include "Config.h"
 
@@ -15,7 +11,6 @@
 
 #include <json.hpp>
 
-#include "resource.h"
 #include "Common.h"
 #include "Mod.h"
 

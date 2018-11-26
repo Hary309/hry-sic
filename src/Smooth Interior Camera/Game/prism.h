@@ -1,25 +1,31 @@
-/*
-*********************************************************************
-* File			: prism.h
-* Project		: Smooth Interior Camera
-* Developers	: Piotr Krupa (piotrkrupa06@gmail.com)
-* License		: MIT License
-*********************************************************************
-*/
+/** @file prism.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
+#include "Version.h"
+
 namespace prism
 {
-	class Camera
+	template <size_t Offset1, size_t Offset2>
+	class CameraBase
 	{
 	public:
-		char pad1[684];			// +0
-		unsigned m_keyboardEv;	// +684
-		float m_rx_predef;		// +688
-		float m_ry_predef;		// +692
-		char pad3[144];			// +696
-		float m_rx;				// +840 main camera
-		float m_ry;				// +844
+		char pad1[Offset1];			// +0
+		unsigned m_keyboardEv;		// +Offset1
+		float m_rx_predef;			// +Offset1 + 4
+		float m_ry_predef;			// +Offset1 + 8
+		char pad2[Offset2];			// +Offset1 + 12
+		float m_rx;					// +Offset2
+		float m_ry;					// +Offset2 + 4
 	};
+
+
+#if defined(HOOK_V1)
+	using Camera = CameraBase<684, 144>;
+#elif defined(HOOK_V2)
+	using Camera = CameraBase<692, 144>;
+#endif
 }
