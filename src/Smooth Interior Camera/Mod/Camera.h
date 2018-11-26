@@ -16,7 +16,7 @@ class Camera
 	};		
 
 private:
-	prism::Camera	*m_pGameCamera = nullptr;
+	prism::CameraV2Pos	*m_pGameCamera = nullptr;
 
 	MoveTo			m_moveType;
 
@@ -44,9 +44,9 @@ public:
 	void MoveTo(float rx);
 	void UpdateRX(float rx) { m_rxCurr = rx; }
 
-	void UpdateGameCamera(prism::Camera *gameCamera) { m_pGameCamera = gameCamera; }
+	void UpdateGameCamera(prism::CameraV2Pos *gameCamera) { m_pGameCamera = gameCamera; }
 
-	prism::Camera *GetGameCamera() { return m_pGameCamera; }
+	prism::CameraV2Pos *GetGameCamera() { return m_pGameCamera; }
 
 	void Pulse();
 

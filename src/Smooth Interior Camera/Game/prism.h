@@ -28,4 +28,19 @@ namespace prism
 #elif defined(HOOK_V2)
 	using Camera = CameraBase<692, 144>;
 #endif
+
+	class CameraV2
+	{
+	public:
+		unsigned m_keyboardEv;		// +0
+		float m_rx_predef;			// +4
+		float m_ry_predef;			// +8
+	};
+
+	class CameraV2Pos
+	{
+	public:
+		float m_rx;					// +0
+		float m_ry;					// +4
+	};
 }

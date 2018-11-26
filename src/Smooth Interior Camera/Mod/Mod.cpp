@@ -46,7 +46,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 
 	if (!Hooks::Init())
 	{
-		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check %s or $s for updates", forumLinkETS2, forumLinkATS);
+		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check %s or %s for updates", forumLinkETS2, forumLinkATS);
 		return SCS_RESULT_unsupported;
 	}
 
