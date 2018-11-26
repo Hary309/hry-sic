@@ -16,19 +16,19 @@
 class Mod
 {
 private:
-	std::unique_ptr<Camera>				m_pCam;
-	Config								m_config;
-	bool								m_active = true;
+	std::unique_ptr<Camera>	m_pCam;
+	Config					m_config;
+	bool					m_active = true;
 
-	bool								m_configurating = false;
+	bool					m_configurating = false;
 
-	bool								m_playing = false;
+	bool					m_playing = false;
 
-	unsigned							m_tDelay;
+	unsigned				m_tDelay;
 
-	scs_log_t							m_logFunc;
+	scs_log_t				m_logFunc;
 
-	static Mod							*s_pInst;
+	static Mod				*s_pInst;
 
 public:
 	Mod();
