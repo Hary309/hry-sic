@@ -9,38 +9,18 @@
 
 namespace prism
 {
-	template <size_t Offset1, size_t Offset2>
-	class CameraBase
+	class GameCamera
 	{
 	public:
-		char pad1[Offset1];			// +0
-		unsigned m_keyboardEv;		// +Offset1
-		float m_rx_predef;			// +Offset1 + 4
-		float m_ry_predef;			// +Offset1 + 8
-		char pad2[Offset2];			// +Offset1 + 12
-		float m_rx;					// +Offset2
-		float m_ry;					// +Offset2 + 4
-	};
+		unsigned m_keyboardEv;	// +0
+		float m_rxEnd;			// +4
+		float m_ryEnd;			// +8
+	};	
 
-
-#if defined(HOOK_V1)
-	using Camera = CameraBase<684, 144>;
-#elif defined(HOOK_V2)
-	using Camera = CameraBase<692, 144>;
-#endif
-
-	class CameraV2
+	class GameCameraPos
 	{
 	public:
-		unsigned m_keyboardEv;		// +0
-		float m_rx_predef;			// +4
-		float m_ry_predef;			// +8
-	};
-
-	class CameraV2Pos
-	{
-	public:
-		float m_rx;					// +0
-		float m_ry;					// +4
+		float m_rx;		// +0
+		float m_ry;		// +4
 	};
 }

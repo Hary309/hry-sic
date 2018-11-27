@@ -29,16 +29,16 @@ namespace Hooks
 
 	void CameraEvent(uintptr_t gameCamAddr)
 	{
-		auto pGameCam = reinterpret_cast<prism::CameraV2*>(gameCamAddr + offset1 - 4);
-		auto pGameCamPos = reinterpret_cast<prism::CameraV2Pos*>(gameCamAddr + offset2);
+		auto pGameCam = reinterpret_cast<prism::GameCamera*>(gameCamAddr + offset1 - 4);
+		auto pGameCamPos = reinterpret_cast<prism::GameCameraPos*>(gameCamAddr + offset2);
 
 		auto pCam = g_pMod->GetCamera();
 		pCam->UpdateGameCamera(pGameCamPos);
 
 		if (!g_pMod->IsPlaying() || !g_pMod->IsActive()) // default
 		{
-			pGameCamPos->m_rx = pGameCam->m_rx_predef;
-			pGameCamPos->m_ry = pGameCam->m_ry_predef;
+			pGameCamPos->m_rx = pGameCam->m_rxEnd;
+			pGameCamPos->m_ry = pGameCam->m_ryEnd;
 			pGameCam->m_keyboardEv = false;
 		}
 		else if (g_pMod->IsConfiguring())
@@ -47,7 +47,7 @@ namespace Hooks
 			{
 				for (short i = 0; i < 6; ++i)
 				{
-					if (floatEquals(pGameCam->m_rx_predef, Config::Get()->GetDefaultValue((Config::CameraPos)i)))
+					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::GameCameraPos)i)))
 					{
 						g_pMod->Log(SCS_LOG_TYPE_message, "New value for [%d] %f is %f", i, Config::Get()->m_interiorCamPos[i], pGameCamPos->m_rx);
 						Config::Get()->m_interiorCamPos[i] = pGameCamPos->m_rx;
@@ -63,26 +63,21 @@ namespace Hooks
 		{
 			if (pGameCam->m_keyboardEv)
 			{
-				float rx = pGameCam->m_rx_predef;
+				float rx = pGameCam->m_rxEnd;
 
 				for (short i = 0; i < 6; ++i)
 				{
-					if (floatEquals(pGameCam->m_rx_predef, Config::Get()->GetDefaultValue((Config::CameraPos)i)))
+					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::GameCameraPos)i)))
 					{
-						rx = Config::Get()->GetValue((Config::CameraPos)i);
+						rx = Config::Get()->GetValue((Config::GameCameraPos)i);
 
 					#ifdef TESTING
-						std::cout << "New value for '" << pGameCam->m_rx_predef << "' is '" << rx << "'\n";
+						std::cout << "New value for '" << pGameCam->m_rxEnd << "' is '" << rx << "'\n";
 					#endif
 
 						break;
 					}
 				}
-
-				// 8B 81 B8 02 00 00 // new
-				// 8B 81 B0 02 00 00 // old
-
-				// B4 02
 
 				pCam->UpdateRX(pGameCamPos->m_rx);
 				pCam->MoveTo(rx);
@@ -94,11 +89,6 @@ namespace Hooks
 
 	uintptr_t CameraEvent_addr;
 
-//#if defined(HOOK_V1)
-//	auto CameraEvent_pattern = "8B 81 B0 02 00 00 89 81 48 03 00 00 8B 81 B4 02 00 00 89 81 4C 03 00 00 C7 81 AC 02 00 00 00 00 00 00";
-//#elif defined(HOOK_V2)
-//  auto CameraEvent_pattern = "8B 81 B8 02 00 00 89 81 50 03 00 00 8B 81 BC 02 00 00 89 81 54 03 00 00 C7 81 B4 02 00 00 00 00 00 00";
-//#endif
 	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
 
 	extern "C"
@@ -129,7 +119,7 @@ namespace Hooks
 
 			offset2 = (static_cast<short>(right) << 8) | left;
 
-			printf("%d $X\n", offset2, offset2);
+			printf("%i $i\n", offset1, offset2);
 
 			CameraEvent_Address = (uintptr_t)CameraEvent;
 			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
