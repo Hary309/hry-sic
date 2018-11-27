@@ -23,14 +23,13 @@ namespace Hooks
 {
 	Mod* g_pMod;
 
-	short offset1 = 0;
-	short offset2 = 0;
-
+	std::uint16_t gameCamOffset = 0;
+	std::uint16_t gameCamPosOffset = 0;
 
 	void CameraEvent(uintptr_t gameCamAddr)
 	{
-		auto pGameCam = reinterpret_cast<prism::GameCamera*>(gameCamAddr + offset1 - 4);
-		auto pGameCamPos = reinterpret_cast<prism::GameCameraPos*>(gameCamAddr + offset2);
+		auto pGameCam = reinterpret_cast<prism::GameCamera*>(gameCamAddr + gameCamOffset);
+		auto pGameCamPos = reinterpret_cast<prism::GameCameraPos*>(gameCamAddr + gameCamPosOffset);
 
 		auto pCam = g_pMod->GetCamera();
 		pCam->UpdateGameCamera(pGameCamPos);
@@ -109,17 +108,10 @@ namespace Hooks
 			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
 		#endif
 
-			int left = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + 2);
-			int right = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + 3);
+			gameCamOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 2) - 4;
+			gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 8);
 
-			offset1 = (static_cast<short>(right) << 8) | left;
-
-			left = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + 8);
-			right = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + 9);
-
-			offset2 = (static_cast<short>(right) << 8) | left;
-
-			printf("%i $i\n", offset1, offset2);
+			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
 
 			CameraEvent_Address = (uintptr_t)CameraEvent;
 			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);

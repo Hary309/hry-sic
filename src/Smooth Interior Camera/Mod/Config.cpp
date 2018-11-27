@@ -79,7 +79,7 @@ void Config::Load()
 	int version = json["version"];
 
 #ifdef TESTING
-	std::cout << "Version: " << version << "\n";
+	std::cout << "Version: " << std::dec << version << "\n";
 #endif
 
 	if (!json["active"].is_null())
