@@ -11,6 +11,8 @@
 #include "Common.h"
 #include "Config.h"
 
+#include "AHEasing/easing.h"
+
 Camera::Camera()
 {
 }
@@ -24,30 +26,29 @@ void Camera::MoveTo(float rx)
 	if (rx == m_rxCurr)
 		return;
 
+	m_rxStart = m_rxCurr;
 	m_rxEnd = rx;
 
-	m_delta = abs(m_rxCurr - m_rxEnd);
+	m_delta = abs(m_rxStart - m_rxEnd);
 
-	if (m_rxCurr > m_rxEnd)
-		m_dir = -1;
-	else if (m_rxCurr < m_rxEnd)
-		m_dir = 1;
+	m_progress = 0.f;
 
-	if (Config::Get()->m_rotationStyle == Config::LINEAR)
+	switch (Config::Get()->m_rotationStyle)
 	{
-		m_speed = (Config::Get()->m_speed * MAX_LINEARLY_SPEED) / 100;
-	}
-	else if (Config::Get()->m_rotationStyle == Config::SMOOTH)
-	{
-		m_acceleration = (Config::Get()->m_speed * MAX_SMOOTH_SPEED) / 100;
-		m_speed = 0.f;
-		m_movingStage = 1;
+		case Config::EaseInOut:
+		{
+			m_speed = ((MAX_EASEINOUT_SPEED * Config::Get()->m_speed) / 100);
+		} break;
+		case Config::Linear:
+		{
+			m_speed = ((MAX_LINEARLY_SPEED * Config::Get()->m_speed) / 100);
+		} break;
 	}
 
-	m_stopInNextPulse = false;
+	m_speed /= (((m_delta) / 2.f) + 1.f);
 
 #ifdef TESTING
-	std::cout << "Moving to " << m_rxEnd << "\n";
+	std::cout << "Moving to " << m_rxEnd << " with speed " << m_speed << "\n";
 #endif
 
 	m_anim = true;
@@ -60,41 +61,29 @@ void Camera::Pulse()
 
 	if (m_anim)
 	{
-		m_pGameCamera->m_rx = m_rxCurr;
+		m_progress += m_speed;
 
-		if (m_stopInNextPulse)
+		if (m_progress >= 1.f)
 		{
+			m_progress = 1.f;
 			m_anim = false;
-			m_stopInNextPulse = false;
-			return;
 		}
 
-		if (Config::Get()->m_rotationStyle == Config::SMOOTH)
+		m_pGameCamera->m_rx = (m_rxEnd - m_rxStart);
+
+		switch (Config::Get()->m_rotationStyle)
 		{
-			if (abs(m_rxCurr - m_rxEnd) >= m_delta / 2 && m_movingStage == 1)
+			case Config::EaseInOut:
 			{
-				m_speed += m_acceleration;
-			}
-			else
+				m_pGameCamera->m_rx *= QuadraticEaseInOut(m_progress);
+			} break;
+			case Config::Linear:
 			{
-				m_speed -= m_acceleration;
-
-				if (m_speed <= 0.f)
-					m_speed = m_acceleration;
-
-				m_movingStage = 2;
-			}
+				m_pGameCamera->m_rx *= m_progress;
+			} break;
 		}
 
-		if (m_rxCurr * m_dir + m_speed < m_rxEnd * m_dir)
-		{
-			m_rxCurr += m_speed * m_dir;
-		}
-		else
-		{
-			m_rxCurr = m_rxEnd;
-			m_stopInNextPulse = true;
-		}
+		m_pGameCamera->m_rx += m_rxStart;
 	}
 	else
 	{

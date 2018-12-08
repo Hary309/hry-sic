@@ -151,7 +151,7 @@ void Config::CreateDefaultFile()
 	m_active = true;
 	m_speed = 75;
 	m_disableShortcuts = false;
-	m_rotationStyle = SMOOTH;
+	m_rotationStyle = EaseInOut;
 
 	for (unsigned i = 0; i < 6; ++i)
 	{

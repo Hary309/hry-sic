@@ -9,33 +9,23 @@
 
 class Camera
 {
-	enum MoveTo
-	{
-		BIGGER,
-		SMALLER
-	};		
-
 private:
 	prism::GameCameraPos *m_pGameCamera = nullptr;
 
-	MoveTo			m_moveType;
+	float	m_rxCurr = 0.f;
+	float	m_rxStart = 0.f;
+	float	m_rxEnd = 0.f;
 
-	float			m_rxCurr = 0.f;
-	float			m_rxEnd = 0.f;
+	float	m_delta = 0.f;
 
-	float			m_delta;
-	int				m_dir;
+	float	m_progress = 0.f;
 
-	float			m_acceleration;
-	float			m_speed = 0.01f;
+	float	m_speed = 0.01f;
 
-	int				m_movingStage;
-
-	bool			m_anim = false;
-	bool			m_stopInNextPulse = false;
+	bool	m_anim = false;
 
 	const float MAX_LINEARLY_SPEED = 0.12f;
-	const float MAX_SMOOTH_SPEED = 0.01f;
+	const float MAX_EASEINOUT_SPEED = 0.1f;
 
 public:
 	Camera();

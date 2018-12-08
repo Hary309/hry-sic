@@ -18,15 +18,15 @@ private:
 public:
 	enum RotationStyle
 	{
-		LINEAR = 0,
-		SMOOTH
+		Linear = 0,
+		EaseInOut
 	};
 
 	// global settings with default values
 	bool			m_active = true;
-	int				m_speed = 70;
+	int				m_speed = 75;
 	bool			m_disableShortcuts = false;
-	RotationStyle	m_rotationStyle = SMOOTH;
+	RotationStyle	m_rotationStyle = EaseInOut;
 
 	float	m_interiorCamPos[6];
 
