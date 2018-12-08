@@ -26,7 +26,7 @@ namespace Hooks
 	std::uint16_t gameCamOffset = 0;
 	std::uint16_t gameCamPosOffset = 0;
 
-	void CameraEvent(uintptr_t gameCamAddr)
+	void __cdecl CameraEvent(uintptr_t gameCamAddr)
 	{
 		auto pGameCam = reinterpret_cast<prism::GameCamera*>(gameCamAddr + gameCamOffset);
 		auto pGameCamPos = reinterpret_cast<prism::GameCameraPos*>(gameCamAddr + gameCamPosOffset);
@@ -90,11 +90,35 @@ namespace Hooks
 
 	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
 
+#if defined(X64)
+
 	extern "C"
 	{
-		ptrdiff_t CameraEvent_Address = 0;
+		uintptr_t CameraEvent_Address = 0;
 		void Asm_CameraEvent();
 	}
+
+#elif defined(X86)
+
+	uintptr_t CameraEvent_Address = 0;
+
+	void __declspec(naked) Asm_CameraEvent()
+	{
+		__asm 
+		{
+			pushad
+				push ecx
+				call CameraEvent_Address
+				add esp, 4
+			popad
+
+			mov     esp, ebp
+			pop     ebp
+			ret
+		}
+	}
+
+#endif
 
 	bool Hook_CameraEvent()
 	{
@@ -113,8 +137,8 @@ namespace Hooks
 
 			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
 
-			CameraEvent_Address = (uintptr_t)CameraEvent;
-			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
+			CameraEvent_Address = reinterpret_cast<uintptr_t>(CameraEvent);
+			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
 
 			return true;
 		}
