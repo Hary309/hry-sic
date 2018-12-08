@@ -57,36 +57,42 @@
     <ClCompile Include="Game\Hooks.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="AHEasing\easing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Hooks.h">
+    <ClInclude Include="AHEasing\easing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Hooks.hpp">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\prism.h">
+    <ClInclude Include="Game\prism.hpp">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Memory\Hooking.Patterns.h">
+    <ClInclude Include="Memory\Hooking.Patterns.hpp">
       <Filter>Header Files\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Memory\MemMgr.h">
+    <ClInclude Include="Memory\MemMgr.hpp">
       <Filter>Header Files\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Mod\Camera.h">
+    <ClInclude Include="Mod\Camera.hpp">
       <Filter>Header Files\Mod</Filter>
     </ClInclude>
-    <ClInclude Include="Mod\Config.h">
+    <ClInclude Include="Mod\Config.hpp">
       <Filter>Header Files\Mod</Filter>
     </ClInclude>
-    <ClInclude Include="Mod\Mod.h">
+    <ClInclude Include="Mod\Mod.hpp">
       <Filter>Header Files\Mod</Filter>
     </ClInclude>
-    <ClInclude Include="Version.h">
+    <ClInclude Include="Common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -96,12 +102,14 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ets2.def" />
-    <None Include="ats.def" />
-  </ItemGroup>
-  <ItemGroup>
     <MASM Include="Game\HooksASM.asm">
       <Filter>Source Files</Filter>
     </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sic_x64.def" />
+    <None Include="sic_x86.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

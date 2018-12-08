@@ -5,7 +5,7 @@
  * regarding licensing.
  */
 
-#include "Hooking.Patterns.h"
+#include "Hooking.Patterns.hpp"
 
 #define WIN32_LEAN_AND_MEAN
 

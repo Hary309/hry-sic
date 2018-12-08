@@ -3,17 +3,17 @@
  ** @license MIT License
  **/
 
-#include "Mod.h"
+#include "Mod.hpp"
 
 #include <cstdio>
 #include <Windows.h>
 #include <iostream>
 
-#include "Memory/MemMgr.h"
-#include "Game/Hooks.h"
-#include "Mod/Camera.h"
-#include "Mod/Config.h"
-#include "Common.h"
+#include "Memory/MemMgr.hpp"
+#include "Game/Hooks.hpp"
+#include "Mod/Camera.hpp"
+#include "Mod/Config.hpp"
+#include "Common.hpp"
 
 Mod *Mod::s_pInst;
 
@@ -46,7 +46,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 
 	if (!Hooks::Init())
 	{
-		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check %s or $s for updates", forumLinkETS2, forumLinkATS);
+		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check %s or %s for updates", forumLinkETS2, forumLinkATS);
 		return SCS_RESULT_unsupported;
 	}
 

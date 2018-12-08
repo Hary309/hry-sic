@@ -3,7 +3,7 @@
  ** @license MIT License
  **/
 
-#include "Config.h"
+#include "Config.hpp"
 
 #include <iostream>
 #include <string>
@@ -11,8 +11,8 @@
 
 #include <json.hpp>
 
-#include "Common.h"
-#include "Mod.h"
+#include "Common.hpp"
+#include "Mod.hpp"
 
 Config *Config::s_pInst;
 
@@ -79,28 +79,39 @@ void Config::Load()
 	int version = json["version"];
 
 #ifdef TESTING
-	std::cout << "Version: " << version << "\n";
+	std::cout << "Version: " << std::dec << version << "\n";
 #endif
+
+
+	bool needSave = false;
+
+	if (version != CURRENT_VERSION_SHORT)
+		needSave = true;
 
 	if (!json["active"].is_null())
 		m_active = json["active"];
 	else
-		Save();
-
+		needSave = true;
+	
 	if (!json["speed"].is_null())
 		m_speed = json["speed"];
 	else
-		Save();
+		needSave = true;
 
 	if (!json["disable_shortcuts"].is_null())
 		m_disableShortcuts = json["disable_shortcuts"];
 	else
-		Save();
+		needSave = true;
 
 	if (!json["rotation_style"].is_null())
 		m_rotationStyle = json["rotation_style"];
 	else
+		needSave = true;
+
+	if (needSave)
+	{
 		Save();
+	}
 
 #ifdef TESTING
 	std::cout << "active: " << (m_active ? "true" : "false") << "\n";
@@ -151,7 +162,7 @@ void Config::CreateDefaultFile()
 	m_active = true;
 	m_speed = 75;
 	m_disableShortcuts = false;
-	m_rotationStyle = SMOOTH;
+	m_rotationStyle = EaseInOut;
 
 	for (unsigned i = 0; i < 6; ++i)
 	{

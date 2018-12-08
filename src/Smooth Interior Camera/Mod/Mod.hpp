@@ -10,8 +10,8 @@
 
 #include <scssdk_telemetry.h>
 
-#include "Config.h"
-#include "Camera.h"
+#include "Config.hpp"
+#include "Camera.hpp"
 
 class Mod
 {
@@ -49,7 +49,7 @@ public:
 	Camera *GetCamera()		{ return m_pCam.get(); }
 	static Mod *Get()		{ return s_pInst; }
 
-	static void TelemetryFrameEnd(const scs_event_t, const void *const, const scs_context_t);
-	static void TelemetryPause(const scs_event_t event, const void *const, const scs_context_t);
+	static void __stdcall TelemetryFrameEnd(const scs_event_t, const void *const, const scs_context_t);
+	static void __stdcall TelemetryPause(const scs_event_t event, const void *const, const scs_context_t);
 };
 

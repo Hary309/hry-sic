@@ -3,38 +3,41 @@
  ** @license MIT License
  **/
 
-#include "Hooks.h"
+#include "Hooks.hpp"
 
 #include <Windows.h>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 
-#include "Memory/Hooking.Patterns.h"
-#include "Memory/MemMgr.h"
-#include "Mod/Mod.h"
-#include "Mod/Camera.h"
-#include "Mod/Config.h"
-#include "Game/prism.h"
-#include "Common.h"
-#include "Version.h"
+#include "Memory/Hooking.Patterns.hpp"
+#include "Memory/MemMgr.hpp"
+#include "Mod/Mod.hpp"
+#include "Mod/Camera.hpp"
+#include "Mod/Config.hpp"
+#include "Game/prism.hpp"
+#include "Common.hpp"
+#include "Version.hpp"
 
 namespace Hooks
 {
 	Mod* g_pMod;
 
-	void CameraEvent(prism::Camera *pGameCam)
+	std::uint16_t gameCamOffset = 0;
+	std::uint16_t gameCamPosOffset = 0;
+
+	void __cdecl CameraEvent(uintptr_t gameCamAddr)
 	{
-		if (!pGameCam)
-			return;
+		auto pGameCam = reinterpret_cast<prism::GameCamera*>(gameCamAddr + gameCamOffset);
+		auto pGameCamPos = reinterpret_cast<prism::GameCameraPos*>(gameCamAddr + gameCamPosOffset);
 
 		auto pCam = g_pMod->GetCamera();
-		pCam->UpdateGameCamera(pGameCam);
+		pCam->UpdateGameCamera(pGameCamPos);
 
 		if (!g_pMod->IsPlaying() || !g_pMod->IsActive()) // default
 		{
-			pGameCam->m_rx = pGameCam->m_rx_predef;
-			pGameCam->m_ry = pGameCam->m_ry_predef;
+			pGameCamPos->m_rx = pGameCam->m_rxEnd;
+			pGameCamPos->m_ry = pGameCam->m_ryEnd;
 			pGameCam->m_keyboardEv = false;
 		}
 		else if (g_pMod->IsConfiguring())
@@ -43,10 +46,10 @@ namespace Hooks
 			{
 				for (short i = 0; i < 6; ++i)
 				{
-					if (floatEquals(pGameCam->m_rx_predef, Config::Get()->GetDefaultValue((Config::CameraPos)i)))
+					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::GameCameraPos)i)))
 					{
-						g_pMod->Log(SCS_LOG_TYPE_message, "New value for [%d] %f is %f", i, Config::Get()->m_interiorCamPos[i], pGameCam->m_rx);
-						Config::Get()->m_interiorCamPos[i] = pGameCam->m_rx;
+						g_pMod->Log(SCS_LOG_TYPE_message, "New value for [%d] %f is %f", i, Config::Get()->m_interiorCamPos[i], pGameCamPos->m_rx);
+						Config::Get()->m_interiorCamPos[i] = pGameCamPos->m_rx;
 						g_pMod->DisableConfigurating();
 						Config::Get()->Save();
 					}
@@ -59,23 +62,23 @@ namespace Hooks
 		{
 			if (pGameCam->m_keyboardEv)
 			{
-				float rx = pGameCam->m_rx_predef;
+				float rx = pGameCam->m_rxEnd;
 
 				for (short i = 0; i < 6; ++i)
 				{
-					if (floatEquals(pGameCam->m_rx_predef, Config::Get()->GetDefaultValue((Config::CameraPos)i)))
+					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::GameCameraPos)i)))
 					{
-						rx = Config::Get()->GetValue((Config::CameraPos)i);
+						rx = Config::Get()->GetValue((Config::GameCameraPos)i);
 
 					#ifdef TESTING
-						std::cout << "New value for '" << pGameCam->m_rx_predef << "' is '" << rx << "'\n";
+						std::cout << "New value for '" << pGameCam->m_rxEnd << "' is '" << rx << "'\n";
 					#endif
 
 						break;
 					}
 				}
 
-				pCam->UpdateRX(pGameCam->m_rx);
+				pCam->UpdateRX(pGameCamPos->m_rx);
 				pCam->MoveTo(rx);
 
 				pGameCam->m_keyboardEv = false;
@@ -85,17 +88,37 @@ namespace Hooks
 
 	uintptr_t CameraEvent_addr;
 
-#if defined(HOOK_V1)
-	auto CameraEvent_pattern = "8B 81 B0 02 00 00 89 81 48 03 00 00 8B 81 B4 02 00 00 89 81 4C 03 00 00 C7 81 AC 02 00 00 00 00 00 00";
-#elif defined(HOOK_V2)
-	auto CameraEvent_pattern = "8B 81 B8 02 00 00 89 81 50 03 00 00 8B 81 BC 02 00 00 89 81 54 03 00 00 C7 81 B4 02 00 00 00 00 00 00";
-#endif
+	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
+
+#if defined(X64)
 
 	extern "C"
 	{
-		ptrdiff_t CameraEvent_Address = 0;
+		uintptr_t CameraEvent_Address = 0;
 		void Asm_CameraEvent();
 	}
+
+#elif defined(X86)
+
+	uintptr_t CameraEvent_Address = 0;
+
+	void __declspec(naked) Asm_CameraEvent()
+	{
+		__asm 
+		{
+			pushad
+				push ecx
+				call CameraEvent_Address
+				add esp, 4
+			popad
+
+			mov     esp, ebp
+			pop     ebp
+			ret
+		}
+	}
+
+#endif
 
 	bool Hook_CameraEvent()
 	{
@@ -109,8 +132,13 @@ namespace Hooks
 			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
 		#endif
 
-			CameraEvent_Address = (uintptr_t)CameraEvent;
-			MemMgr::LongJmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
+			gameCamOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 2) - 4;
+			gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 8);
+
+			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
+
+			CameraEvent_Address = reinterpret_cast<uintptr_t>(CameraEvent);
+			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
 
 			return true;
 		}

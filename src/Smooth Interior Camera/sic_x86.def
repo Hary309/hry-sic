@@ -1,4 +1,4 @@
-LIBRARY ats_sic
+LIBRARY sic_x86
 EXPORTS
 scs_telemetry_init=scs_telemetry_init
 scs_telemetry_shutdown=scs_telemetry_shutdown

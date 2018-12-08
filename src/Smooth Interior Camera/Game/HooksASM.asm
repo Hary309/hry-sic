@@ -3,6 +3,8 @@
 ; ** @license MIT License
 ; **
 
+IFDEF RAX
+
 extern CameraEvent_Address: qword
 
 .code
@@ -29,5 +31,7 @@ Asm_CameraEvent PROC
 	ret
 
 Asm_CameraEvent ENDP
+
+ENDIF
 
 End

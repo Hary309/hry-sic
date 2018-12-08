@@ -3,7 +3,7 @@
  ** @license MIT License
  **/
 
-#include "Mod\Mod.h"
+#include "Mod\Mod.hpp"
 
 #include <Windows.h>
 #include <memory>
