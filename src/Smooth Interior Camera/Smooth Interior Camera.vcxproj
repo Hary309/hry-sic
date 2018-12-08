@@ -69,18 +69,18 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\$(Configuration)\</OutDir>
     <IntDir>..\..\obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>sic_x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\$(Configuration)\</OutDir>
     <IntDir>..\..\obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>sic_x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\$(Configuration)\</OutDir>
     <IntDir>..\..\obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>sic_x86</TargetName>
     <TargetExt>.dll</TargetExt>
@@ -89,7 +89,8 @@
     <IntDir>..\..\obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>sic_x86</TargetName>
     <TargetExt>.dll</TargetExt>
-    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>..\..\bin\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -171,9 +172,16 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <PreprocessorDefinitions>NDEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>sic_x86.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
