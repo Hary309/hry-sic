@@ -80,7 +80,7 @@
     <TargetName>sic_x64</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>E:\SteamLibrary\steamapps\common\Euro Truck Simulator 2\bin\win_x86\plugins\</OutDir>
+    <OutDir>..\..\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\..\obj\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>sic_x86</TargetName>
     <TargetExt>.dll</TargetExt>
