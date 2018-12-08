@@ -82,25 +82,36 @@ void Config::Load()
 	std::cout << "Version: " << std::dec << version << "\n";
 #endif
 
+
+	bool needSave = false;
+
+	if (version != CURRENT_VERSION_SHORT)
+		needSave = true;
+
 	if (!json["active"].is_null())
 		m_active = json["active"];
 	else
-		Save();
-
+		needSave = true;
+	
 	if (!json["speed"].is_null())
 		m_speed = json["speed"];
 	else
-		Save();
+		needSave = true;
 
 	if (!json["disable_shortcuts"].is_null())
 		m_disableShortcuts = json["disable_shortcuts"];
 	else
-		Save();
+		needSave = true;
 
 	if (!json["rotation_style"].is_null())
 		m_rotationStyle = json["rotation_style"];
 	else
+		needSave = true;
+
+	if (needSave)
+	{
 		Save();
+	}
 
 #ifdef TESTING
 	std::cout << "active: " << (m_active ? "true" : "false") << "\n";

@@ -36,6 +36,7 @@ void Camera::MoveTo(float rx)
 	switch (Config::Get()->m_rotationStyle)
 	{
 		case Config::EaseInOut:
+		case Config::EaseOut:
 		{
 			m_speed = ((MAX_EASEINOUT_SPEED * Config::Get()->m_speed) / 100);
 		} break;
@@ -76,6 +77,10 @@ void Camera::Pulse()
 			case Config::EaseInOut:
 			{
 				m_pGameCamera->m_rx *= QuadraticEaseInOut(m_progress);
+			} break;
+			case Config::EaseOut:
+			{
+				m_pGameCamera->m_rx *= QuadraticEaseOut(m_progress);
 			} break;
 			case Config::Linear:
 			{

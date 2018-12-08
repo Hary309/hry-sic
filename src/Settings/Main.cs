@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace Settings
 {
@@ -85,17 +85,14 @@ namespace Settings
 				activeCheckBox.Checked = settings.active;
 				disableScCheckBox.Checked = settings.disable_shortcuts;
 
-				switch (settings.rotation_style)
-				{
-					case 0:
-						rotStyleBox.Text = "Linear";
-						break;
-					case 1:
-						rotStyleBox.Text = "Smooth";
-						break;
-				}
+                if (settings.rotation_style < 0 || settings.rotation_style > 2)
+                {
+                    settings.rotation_style = 1;
+                }
 
-				if (settings.speed > speedTrackBar.Maximum)
+                rotStyleBox.SelectedIndex = settings.rotation_style;
+
+                if (settings.speed > speedTrackBar.Maximum)
 				{
 					MessageBox.Show("Speed value is too high!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					this.Close();

@@ -19,7 +19,8 @@ public:
 	enum RotationStyle
 	{
 		Linear = 0,
-		EaseInOut
+		EaseInOut,
+		EaseOut
 	};
 
 	// global settings with default values
