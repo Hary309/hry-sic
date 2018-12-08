@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Version.h"
+#include "Version.hpp"
 
 namespace prism
 {

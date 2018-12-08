@@ -3,7 +3,7 @@
  ** @license MIT License
  **/
 
-#include "Config.h"
+#include "Config.hpp"
 
 #include <iostream>
 #include <string>
@@ -11,8 +11,8 @@
 
 #include <json.hpp>
 
-#include "Common.h"
-#include "Mod.h"
+#include "Common.hpp"
+#include "Mod.hpp"
 
 Config *Config::s_pInst;
 

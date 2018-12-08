@@ -3,21 +3,21 @@
  ** @license MIT License
  **/
 
-#include "Hooks.h"
+#include "Hooks.hpp"
 
 #include <Windows.h>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 
-#include "Memory/Hooking.Patterns.h"
-#include "Memory/MemMgr.h"
-#include "Mod/Mod.h"
-#include "Mod/Camera.h"
-#include "Mod/Config.h"
-#include "Game/prism.h"
-#include "Common.h"
-#include "Version.h"
+#include "Memory/Hooking.Patterns.hpp"
+#include "Memory/MemMgr.hpp"
+#include "Mod/Mod.hpp"
+#include "Mod/Camera.hpp"
+#include "Mod/Config.hpp"
+#include "Game/prism.hpp"
+#include "Common.hpp"
+#include "Version.hpp"
 
 namespace Hooks
 {

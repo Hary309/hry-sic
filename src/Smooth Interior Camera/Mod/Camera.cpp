@@ -3,13 +3,13 @@
  ** @license MIT License
  **/
 
-#include "Camera.h"
+#include "Camera.hpp"
 
 #include <Windows.h>
 #include <iostream>
 
-#include "Common.h"
-#include "Config.h"
+#include "Common.hpp"
+#include "Config.hpp"
 
 #include "AHEasing/easing.h"
 

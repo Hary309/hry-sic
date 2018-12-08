@@ -10,7 +10,7 @@
 // Next default values for new objects
 // 
 
-#include "Version.h"
+#include "Version.hpp"
 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

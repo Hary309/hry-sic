@@ -62,37 +62,37 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Hooks.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\prism.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Memory\Hooking.Patterns.h">
-      <Filter>Header Files\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Memory\MemMgr.h">
-      <Filter>Header Files\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="Mod\Camera.h">
-      <Filter>Header Files\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Mod\Config.h">
-      <Filter>Header Files\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Mod\Mod.h">
-      <Filter>Header Files\Mod</Filter>
-    </ClInclude>
-    <ClInclude Include="Version.h">
+    <ClInclude Include="AHEasing\easing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AHEasing\easing.h">
+    <ClInclude Include="Game\Hooks.hpp">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\prism.hpp">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\Hooking.Patterns.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory\MemMgr.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod\Camera.hpp">
+      <Filter>Header Files\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod\Config.hpp">
+      <Filter>Header Files\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod\Mod.hpp">
+      <Filter>Header Files\Mod</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

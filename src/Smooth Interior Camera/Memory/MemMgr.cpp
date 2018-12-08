@@ -3,11 +3,11 @@
  ** @license MIT License
  **/
 
-#include "MemMgr.h"
+#include "MemMgr.hpp"
 
 #include <Windows.h>
 
-#include "Version.h"
+#include "Version.hpp"
 
 #ifdef X64
 /*

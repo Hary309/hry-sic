@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Game/prism.h"
+#include "Game/prism.hpp"
 
 class Camera
 {

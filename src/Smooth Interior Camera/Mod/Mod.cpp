@@ -3,17 +3,17 @@
  ** @license MIT License
  **/
 
-#include "Mod.h"
+#include "Mod.hpp"
 
 #include <cstdio>
 #include <Windows.h>
 #include <iostream>
 
-#include "Memory/MemMgr.h"
-#include "Game/Hooks.h"
-#include "Mod/Camera.h"
-#include "Mod/Config.h"
-#include "Common.h"
+#include "Memory/MemMgr.hpp"
+#include "Game/Hooks.hpp"
+#include "Mod/Camera.hpp"
+#include "Mod/Config.hpp"
+#include "Common.hpp"
 
 Mod *Mod::s_pInst;
 

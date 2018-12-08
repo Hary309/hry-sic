@@ -10,8 +10,8 @@
 
 #include <scssdk_telemetry.h>
 
-#include "Config.h"
-#include "Camera.h"
+#include "Config.hpp"
+#include "Camera.hpp"
 
 class Mod
 {

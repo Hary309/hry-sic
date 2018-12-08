@@ -189,16 +189,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AHEasing\easing.h" />
-    <ClInclude Include="Mod\Camera.h" />
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="Mod\Config.h" />
-    <ClInclude Include="Memory\Hooking.Patterns.h" />
-    <ClInclude Include="Game\Hooks.h" />
-    <ClInclude Include="Memory\MemMgr.h" />
-    <ClInclude Include="Mod\Mod.h" />
-    <ClInclude Include="Game\prism.h" />
+    <ClInclude Include="Mod\Camera.hpp" />
+    <ClInclude Include="Common.hpp" />
+    <ClInclude Include="Mod\Config.hpp" />
+    <ClInclude Include="Memory\Hooking.Patterns.hpp" />
+    <ClInclude Include="Game\Hooks.hpp" />
+    <ClInclude Include="Memory\MemMgr.hpp" />
+    <ClInclude Include="Mod\Mod.hpp" />
+    <ClInclude Include="Game\prism.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Version.h" />
+    <ClInclude Include="Version.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
