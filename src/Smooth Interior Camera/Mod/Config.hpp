@@ -32,7 +32,7 @@ public:
 	float	m_interiorCamPos[6];
 
 
-	enum GameCameraPos
+	enum InteriorCameraPos
 	{
 		INTERIOR_LOOK_FORWARD = 0,
 		INTERIOR_LOOK_UP_RIGHT,

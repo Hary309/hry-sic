@@ -9,18 +9,20 @@
 
 namespace prism
 {
-	class GameCamera
+	class InteriorCamera
 	{
 	public:
 		unsigned m_keyboardEv;	// +0
 		float m_rxEnd;			// +4
 		float m_ryEnd;			// +8
+		// +12
 	};	
 
-	class GameCameraPos
+	class InteriorCameraPos
 	{
 	public:
 		float m_rx;		// +0
 		float m_ry;		// +4
+		// +8
 	};
 }
