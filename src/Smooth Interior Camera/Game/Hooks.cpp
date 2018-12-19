@@ -90,6 +90,8 @@ namespace Hooks
 
 	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
 
+	uint8_t baseBytes[34] = { 0 };
+
 #if defined(X64)
 
 	extern "C"
@@ -133,7 +135,17 @@ namespace Hooks
 			gameCamOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 2) - 4;
 			gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 8);
 
+		#ifdef TESTING 
 			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
+			printf("Number of bytes to backup: %lld\n", sizeof(baseBytes));
+		#endif 
+			// backup bytes
+			for (int i = 0; i < sizeof(baseBytes); ++i)
+			{
+				baseBytes[i] = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + i);
+			}
+
+
 
 			CameraEvent_Address = reinterpret_cast<uintptr_t>(CameraEvent);
 			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
@@ -176,7 +188,11 @@ namespace Hooks
 			std::cout << "Unhooking...\n";
 #endif
 
-			memcpy((uint8_t*)CameraEvent_addr, CameraEvent_pattern, sizeof(CameraEvent_pattern));
+			// restore bytes
+			for (int i = 0; i < sizeof(baseBytes); ++i)
+			{
+				*reinterpret_cast<std::uint8_t*>(CameraEvent_addr + i) = baseBytes[i];
+			}
 		}
 	}
 }
