@@ -18,8 +18,7 @@ Asm_CameraEvent PROC
 	push r8
 
 	; call library function
-	mov rax, CameraEvent_Address
-	call rax
+	call CameraEvent_Address
 
 	; restore registers
 	pop r8

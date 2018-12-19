@@ -107,9 +107,7 @@ namespace Hooks
 		__asm 
 		{
 			pushad
-				push ecx
 				call CameraEvent_Address
-				add esp, 4
 			popad
 
 			mov     esp, ebp
