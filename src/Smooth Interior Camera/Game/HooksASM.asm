@@ -6,6 +6,7 @@
 IFDEF RAX
 
 extern CameraEvent_Address: qword
+extern CameraEvent_RetnAddress: qword
 
 .code
 
@@ -26,9 +27,8 @@ Asm_CameraEvent PROC
 	pop rcx
 	pop rax
 
-	add rsp, 38h
-	ret
-
+	; jump to End
+	jmp CameraEvent_RetnAddress
 Asm_CameraEvent ENDP
 
 ENDIF

@@ -97,12 +97,14 @@ namespace Hooks
 	extern "C"
 	{
 		uintptr_t CameraEvent_Address = 0;
+		uintptr_t CameraEvent_RetnAddress = 0;
 		void Asm_CameraEvent();
 	}
 
 #elif defined(X86)
 
 	uintptr_t CameraEvent_Address = 0;
+	uintptr_t CameraEvent_RetnAddress = 0;
 
 	void __declspec(naked) Asm_CameraEvent()
 	{
@@ -112,9 +114,7 @@ namespace Hooks
 				call CameraEvent_Address
 			popad
 
-			mov     esp, ebp
-			pop     ebp
-			ret
+			jmp CameraEvent_RetnAddress
 		}
 	}
 
@@ -145,9 +145,10 @@ namespace Hooks
 				baseBytes[i] = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + i);
 			}
 
-
+			MemMgr::UnprotectMemory(CameraEvent_addr, sizeof(baseBytes));
 
 			CameraEvent_Address = reinterpret_cast<uintptr_t>(CameraEvent);
+			CameraEvent_RetnAddress = CameraEvent_addr + sizeof(baseBytes);
 			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
 
 			return true;
