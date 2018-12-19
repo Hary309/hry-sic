@@ -28,8 +28,8 @@ namespace Hooks
 
 	void __cdecl CameraEvent(uintptr_t gameCamAddr)
 	{
-		auto pGameCam = reinterpret_cast<prism::GameCamera*>(gameCamAddr + gameCamOffset);
-		auto pGameCamPos = reinterpret_cast<prism::GameCameraPos*>(gameCamAddr + gameCamPosOffset);
+		auto pGameCam = reinterpret_cast<prism::InteriorCamera*>(gameCamAddr + gameCamOffset);
+		auto pGameCamPos = reinterpret_cast<prism::InteriorCameraPos*>(gameCamAddr + gameCamPosOffset);
 
 		auto pCam = g_pMod->GetCamera();
 		pCam->UpdateGameCamera(pGameCamPos);
@@ -46,7 +46,7 @@ namespace Hooks
 			{
 				for (short i = 0; i < 6; ++i)
 				{
-					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::GameCameraPos)i)))
+					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::InteriorCameraPos)i)))
 					{
 						g_pMod->Log(SCS_LOG_TYPE_message, "New value for [%d] %f is %f", i, Config::Get()->m_interiorCamPos[i], pGameCamPos->m_rx);
 						Config::Get()->m_interiorCamPos[i] = pGameCamPos->m_rx;
@@ -66,9 +66,9 @@ namespace Hooks
 
 				for (short i = 0; i < 6; ++i)
 				{
-					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::GameCameraPos)i)))
+					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::InteriorCameraPos)i)))
 					{
-						rx = Config::Get()->GetValue((Config::GameCameraPos)i);
+						rx = Config::Get()->GetValue((Config::InteriorCameraPos)i);
 
 					#ifdef TESTING
 						std::cout << "New value for '" << pGameCam->m_rxEnd << "' is '" << rx << "'\n";
@@ -90,31 +90,31 @@ namespace Hooks
 
 	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
 
+	uint8_t baseBytes[34] = { 0 };
+
 #if defined(X64)
 
 	extern "C"
 	{
 		uintptr_t CameraEvent_Address = 0;
+		uintptr_t CameraEvent_RetnAddress = 0;
 		void Asm_CameraEvent();
 	}
 
 #elif defined(X86)
 
 	uintptr_t CameraEvent_Address = 0;
+	uintptr_t CameraEvent_RetnAddress = 0;
 
 	void __declspec(naked) Asm_CameraEvent()
 	{
 		__asm 
 		{
 			pushad
-				push ecx
 				call CameraEvent_Address
-				add esp, 4
 			popad
 
-			mov     esp, ebp
-			pop     ebp
-			ret
+			jmp CameraEvent_RetnAddress
 		}
 	}
 
@@ -135,9 +135,21 @@ namespace Hooks
 			gameCamOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 2) - 4;
 			gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 8);
 
+		#ifdef TESTING 
 			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
+			printf("Number of bytes to backup: %lld\n", sizeof(baseBytes));
+		#endif
+
+			// backup bytes
+			for (int i = 0; i < sizeof(baseBytes); ++i)
+			{
+				baseBytes[i] = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + i);
+			}
+
+			MemMgr::UnprotectMemory(CameraEvent_addr, sizeof(baseBytes));
 
 			CameraEvent_Address = reinterpret_cast<uintptr_t>(CameraEvent);
+			CameraEvent_RetnAddress = CameraEvent_addr + sizeof(baseBytes);
 			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
 
 			return true;
@@ -178,7 +190,11 @@ namespace Hooks
 			std::cout << "Unhooking...\n";
 #endif
 
-			memcpy((uint8_t*)CameraEvent_addr, CameraEvent_pattern, sizeof(CameraEvent_pattern));
+			// restore bytes
+			for (int i = 0; i < sizeof(baseBytes); ++i)
+			{
+				*reinterpret_cast<std::uint8_t*>(CameraEvent_addr + i) = baseBytes[i];
+			}
 		}
 	}
 }

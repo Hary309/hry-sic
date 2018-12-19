@@ -12,7 +12,7 @@
 #ifdef X64
 /*
 	push rax
-	mov rax addr   ; @addr - address to original
+	mov rax. [addr]   ; @addr - address to original
 	xchg qword ptr ss:[rsp], rax
 	ret
 */

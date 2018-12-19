@@ -10,7 +10,7 @@
 class Camera
 {
 private:
-	prism::GameCameraPos *m_pGameCamera = nullptr;
+	prism::InteriorCameraPos *m_pGameCamera = nullptr;
 
 	float	m_rxCurr = 0.f;
 	float	m_rxStart = 0.f;
@@ -34,9 +34,9 @@ public:
 	void MoveTo(float rx);
 	void UpdateRX(float rx) { m_rxCurr = rx; }
 
-	void UpdateGameCamera(prism::GameCameraPos *gameCamera) { m_pGameCamera = gameCamera; }
+	void UpdateGameCamera(prism::InteriorCameraPos *gameCamera) { m_pGameCamera = gameCamera; }
 
-	prism::GameCameraPos *GetGameCamera() { return m_pGameCamera; }
+	prism::InteriorCameraPos *GetGameCamera() { return m_pGameCamera; }
 
 	void Pulse();
 
