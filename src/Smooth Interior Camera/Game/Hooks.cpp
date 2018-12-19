@@ -138,7 +138,8 @@ namespace Hooks
 		#ifdef TESTING 
 			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
 			printf("Number of bytes to backup: %lld\n", sizeof(baseBytes));
-		#endif 
+		#endif
+
 			// backup bytes
 			for (int i = 0; i < sizeof(baseBytes); ++i)
 			{
