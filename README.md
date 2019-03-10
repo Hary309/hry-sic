@@ -19,7 +19,7 @@ https://www.paypal.me/PiotrKrupa
 - Universal for every keys settings (default is for numpad)
 - Possibility to change predefined camera positions
 
-# Hotkeys
+## Hotkeys
 
 - **INSERT** - enable/disable mod;
 - **DELETE** - change predefined positions of camera;
@@ -38,3 +38,16 @@ https://www.paypal.me/PiotrKrupa
 1. Press **Delete** on keyboard
 1. Set the position of the camera (with mouse)
 1. Press key which you want look here
+
+## How to develop
+
+1. Git's things
+
+```bash
+git clone https://github.com/Harry09/Smooth-Interior-Camera.git
+cd Smooth-Interior-Camera
+git submodule init
+git submodule update --resursive
+```
+
+2. Open project `src/Smooth Interior Camera.sln`
