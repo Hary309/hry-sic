@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <Windows.h>
+#include <sstream>
 
 #include <scssdk_telemetry.h>
 
@@ -38,7 +39,23 @@ public:
 
 	void Pulse();
 
-	void Log(scs_log_type_t logType, const char *str, ...);
+	template<typename... Us>
+	void Log(scs_log_type_t logType, Us... args)
+	{
+		std::stringstream sstream;
+
+		sstream << "[SIC] ";
+
+		((sstream << args), ...);
+
+#ifdef TESTING
+		std::cout << sstream.str() << "\n";
+#endif
+
+		if (m_logFunc)
+			m_logFunc(logType, sstream.str().c_str());
+	}
+
 
 	bool IsActive()			{ return m_active; }
 	bool IsConfiguring()	{ return m_configurating; }

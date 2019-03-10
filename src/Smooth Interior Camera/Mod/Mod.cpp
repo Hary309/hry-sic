@@ -36,6 +36,8 @@ int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 #endif
 
 	m_logFunc = scsTelemetry->common.log;
+
+	Mod::Log(SCS_LOG_TYPE_message, "Initializing mod...");
 	
 	const char* forumLinkETS2 = "https://forum.scssoft.com/viewtopic.php?t=223989";
 	const char* forumLinkATS = "https://forum.scssoft.com/viewtopic.php?t=248870";
@@ -46,7 +48,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 
 	if (!Hooks::Init())
 	{
-		Mod::Log(SCS_LOG_TYPE_error, "This version isn't supported! Check %s or %s for updates", forumLinkETS2, forumLinkATS);
+		Mod::Log(SCS_LOG_TYPE_error, "This version of game isn't supported! Check ", forumLinkETS2, " or ", forumLinkATS, " for updates");
 		return SCS_RESULT_unsupported;
 	}
 
@@ -58,7 +60,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 
 	if (init != 3) 
 	{
-		Log(SCS_LOG_TYPE_error, "Unable to register event callbacks");
+		Mod::Log(SCS_LOG_TYPE_error, "Unable to register event callbacks");
 		return SCS_RESULT_generic_error;
 	}
 
@@ -68,7 +70,7 @@ int Mod::Init(scs_telemetry_init_params_v100_t *scsTelemetry)
 
 	m_pCam = std::make_unique<Camera>();
 
-	Mod::Log(SCS_LOG_TYPE_message, "Mod intialized!");
+	Mod::Log(SCS_LOG_TYPE_message, "Mod initialized!");
 
 	return SCS_RESULT_ok;
 }
@@ -103,7 +105,7 @@ void Mod::Pulse()
 		{
 			m_active = !m_active;
 
-			Mod::Log(SCS_LOG_TYPE_message, "Mod %s", m_active ? "activated" : "deactivated");
+			Mod::Log(SCS_LOG_TYPE_message, "Mod ", m_active ? "activated" : "deactivated");
 
 			m_config.m_active = m_active;
 
@@ -125,7 +127,7 @@ void Mod::Pulse()
 		{
 			m_configurating = !m_configurating;
 
-			Mod::Log(SCS_LOG_TYPE_message, "Configuration %s", m_configurating ? "activated" : "deactivated");
+			Mod::Log(SCS_LOG_TYPE_message, "Configuration ", m_configurating ? "activated" : "deactivated");
 
 			if (m_configurating == true)
 				Mod::Log(SCS_LOG_TYPE_message, "Now set camera (with mouse) and push the button which you want to look here");
@@ -153,24 +155,6 @@ void Mod::Pulse()
 			m_tDelay = GetTickCount();
 		}
 	}
-}
-
-void Mod::Log(scs_log_type_t logType, const char *str, ...)
-{
-	char buffer[256];
-	va_list args;
-	va_start(args, str);
-	vsnprintf(buffer, 256, str, args);
-	va_end(args);
-
-	std::string strBuffer = "[SIC] " + std::string(buffer);
-
-#ifdef TESTING
-	std::cout << strBuffer << "\n";
-#endif
-
-	if (m_logFunc)
-		m_logFunc(logType, strBuffer.c_str());
 }
 
 void Mod::DisableConfigurating()

@@ -48,7 +48,7 @@ namespace Hooks
 				{
 					if (floatEquals(pGameCam->m_rxEnd, Config::Get()->GetDefaultValue((Config::InteriorCameraPos)i)))
 					{
-						g_pMod->Log(SCS_LOG_TYPE_message, "New value for [%d] %f is %f", i, Config::Get()->m_interiorCamPos[i], pGameCamPos->m_rx);
+						g_pMod->Log(SCS_LOG_TYPE_message, "New value for [", i ,"] ", Config::Get()->m_interiorCamPos[i], " is ", pGameCamPos->m_rx);
 						Config::Get()->m_interiorCamPos[i] = pGameCamPos->m_rx;
 						g_pMod->DisableConfigurating();
 						Config::Get()->Save();
