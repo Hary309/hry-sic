@@ -47,7 +47,7 @@ https://www.paypal.me/PiotrKrupa
 git clone https://github.com/Harry09/Smooth-Interior-Camera.git
 cd Smooth-Interior-Camera
 git submodule init
-git submodule update --resursive
+git submodule update --recursive
 ```
 
 2. Open project `src/Smooth Interior Camera.sln`
