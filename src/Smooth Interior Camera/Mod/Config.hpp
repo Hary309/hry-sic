@@ -10,11 +10,6 @@
 
 class Config
 {
-private:
-	static Config *s_pInst;
-
-	float m_defaultValues[6];
-
 public:
 	enum RotationStyle
 	{
@@ -22,15 +17,6 @@ public:
 		EaseInOut,
 		EaseOut
 	};
-
-	// global settings with default values
-	bool			m_active = true;
-	int				m_speed = 75;
-	bool			m_disableShortcuts = false;
-	RotationStyle	m_rotationStyle = EaseInOut;
-
-	float	m_interiorCamPos[6];
-
 
 	enum InteriorCameraPos
 	{
@@ -41,6 +27,20 @@ public:
 		INTERIOR_LOOK_LEFT,
 		INTERIOR_LOOK_UP_MIDDLE
 	};
+
+private:
+	static Config *s_pInst;
+
+	float m_defaultValues[6];
+
+public:
+	// global settings with default values
+	bool			m_active = true;
+	int				m_speed = 75;
+	bool			m_disableShortcuts = false;
+	RotationStyle	m_rotationStyle = EaseInOut;
+
+	float	m_interiorCamPos[6] = { 0 };
 
 	const std::string m_settingsPath = "plugins\\sic_settings.txt";
 

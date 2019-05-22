@@ -136,7 +136,7 @@ AHFloat QuinticEaseInOut(AHFloat p)
 // Modeled after quarter-cycle of sine wave
 AHFloat SineEaseIn(AHFloat p)
 {
-	return static_cast<AHFloat>(sin((p - 1) * M_PI_2) + 1);
+	return static_cast<AHFloat>(sin((p - 1.0) * M_PI_2) + 1);
 }
 
 // Modeled after quarter-cycle of sine wave (different phase)

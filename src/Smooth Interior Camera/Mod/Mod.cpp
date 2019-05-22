@@ -101,7 +101,7 @@ void Mod::Pulse()
 		if (GetForegroundWindow() != GetActiveWindow())
 			return;
 
-		if (m_tDelay + 1000 < GetTickCount())
+		if (m_tDelay + 1000 < GetTickCount64())
 		{
 			m_active = !m_active;
 
@@ -111,7 +111,7 @@ void Mod::Pulse()
 
 			Config::Get()->Save();
 
-			m_tDelay = GetTickCount();
+			m_tDelay = GetTickCount64();
 		}
 	}
 
@@ -123,7 +123,7 @@ void Mod::Pulse()
 		if (GetForegroundWindow() != GetActiveWindow())
 			return;
 
-		if (m_tDelay + 1000 < GetTickCount())
+		if (m_tDelay + 1000 < GetTickCount64())
 		{
 			m_configurating = !m_configurating;
 
@@ -132,7 +132,7 @@ void Mod::Pulse()
 			if (m_configurating == true)
 				Mod::Log(SCS_LOG_TYPE_message, "Now set camera (with mouse) and push the button which you want to look here");
 
-			m_tDelay = GetTickCount();
+			m_tDelay = GetTickCount64();
 		}
 	}
 
@@ -144,7 +144,7 @@ void Mod::Pulse()
 		if (GetForegroundWindow() != GetActiveWindow())
 			return;
 
-		if (m_tDelay + 1000 < GetTickCount())
+		if (m_tDelay + 1000 < GetTickCount64())
 		{
 			Mod::Log(SCS_LOG_TYPE_message, "Reloading settings...");
 

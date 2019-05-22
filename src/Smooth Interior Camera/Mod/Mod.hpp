@@ -25,7 +25,7 @@ private:
 
 	bool					m_playing = false;
 
-	unsigned				m_tDelay;
+	uint64_t				m_tDelay;
 
 	scs_log_t				m_logFunc;
 
