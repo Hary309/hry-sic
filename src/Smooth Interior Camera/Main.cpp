@@ -10,7 +10,7 @@
 
 #include <scssdk_telemetry.h>
 
-std::unique_ptr<Mod> g_pMod;
+static std::unique_ptr<Mod> g_pMod;
 
 SCSAPI_RESULT scs_telemetry_init(const scs_u32_t version, const scs_telemetry_init_params_t *const params)
 {

@@ -11,6 +11,7 @@
 
 #include <cassert>
 #include <vector>
+#include <string>
 
 namespace hook
 {
