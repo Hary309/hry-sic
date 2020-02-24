@@ -88,12 +88,12 @@ namespace Hooks
 
 	uintptr_t CameraEvent_addr;
 
-	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
 
 	uint8_t baseBytes[34] = { 0 };
 
 #if defined(X64)
 
+	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
 	extern "C"
 	{
 		uintptr_t CameraEvent_Address = 0;
@@ -103,6 +103,7 @@ namespace Hooks
 
 #elif defined(X86)
 
+	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00 8B";
 	uintptr_t CameraEvent_Address = 0;
 	uintptr_t CameraEvent_RetnAddress = 0;
 
