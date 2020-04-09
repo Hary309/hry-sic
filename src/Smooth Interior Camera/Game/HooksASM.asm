@@ -5,12 +5,12 @@
 
 IFDEF RAX
 
-extern CameraEvent_Address: qword
+extern CameraEvent_CallAddress: qword
 extern CameraEvent_RetnAddress: qword
 
 .code
 
-Asm_CameraEvent PROC
+Asm_CameraEvent_V1 PROC
 
 	; backup registers
 	push rax
@@ -19,7 +19,7 @@ Asm_CameraEvent PROC
 	push r8
 
 	; call library function
-	call CameraEvent_Address
+	call CameraEvent_CallAddress
 
 	; restore registers
 	pop r8
@@ -29,7 +29,29 @@ Asm_CameraEvent PROC
 
 	; jump to End
 	jmp CameraEvent_RetnAddress
-Asm_CameraEvent ENDP
+Asm_CameraEvent_V1 ENDP
+
+Asm_CameraEvent_V2 PROC
+
+	; backup registers
+	push rax
+	push rdx
+	push r8
+
+	; call library function
+	push rcx
+	mov rcx, rdi
+	call CameraEvent_CallAddress
+	pop rcx
+
+	; restore registers
+	pop r8
+	pop rdx
+	pop rax
+
+	; jump to End
+	jmp CameraEvent_RetnAddress
+Asm_CameraEvent_V2 ENDP
 
 ENDIF
 

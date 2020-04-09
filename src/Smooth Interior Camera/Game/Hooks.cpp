@@ -26,7 +26,7 @@ namespace Hooks
 	std::uint16_t gameCamOffset = 0;
 	std::uint16_t gameCamPosOffset = 0;
 
-	void __cdecl CameraEvent(uintptr_t gameCamAddr)
+	void __fastcall CameraEvent(uintptr_t gameCamAddr)
 	{
 		auto pGameCam = reinterpret_cast<prism::InteriorCamera*>(gameCamAddr + gameCamOffset);
 		auto pGameCamPos = reinterpret_cast<prism::InteriorCameraPos*>(gameCamAddr + gameCamPosOffset);
@@ -89,30 +89,46 @@ namespace Hooks
 	uintptr_t CameraEvent_addr;
 
 
-	uint8_t baseBytes[34] = { 0 };
+	uint8_t baseBytes[35] = { 0 };
 
 #if defined(X64)
 
-	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
+	auto CameraEvent_pattern_V1 = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00";
+	auto CameraEvent_pattern_V2 = "F3 0F 10 97 ?? ?? 00 00  F3 0F 10 B7 ?? ?? 00 00  83 F8 01  75 ??  F3 0F 11 97 ?? ?? 00 00  F3 0F 11 B7 ?? ?? 00 00  89 9F ?? ?? 00 00 E9 ?? ?? 00 00";
 	extern "C"
 	{
-		uintptr_t CameraEvent_Address = 0;
+		uintptr_t CameraEvent_CallAddress = 0;
 		uintptr_t CameraEvent_RetnAddress = 0;
-		void Asm_CameraEvent();
+		void Asm_CameraEvent_V1();
+		void Asm_CameraEvent_V2();
 	}
 
 #elif defined(X86)
 
-	auto CameraEvent_pattern = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00 8B";
-	uintptr_t CameraEvent_Address = 0;
+	auto CameraEvent_pattern_V1 = "8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 8B 81 ?? ?? 00 00 89 81 ?? ?? 00 00 C7 81 ?? ?? 00 00 00 00 00 00 8B";
+	auto CameraEvent_pattern_V2 = "F3 0F 10 9F ?? ?? 00 00  F3 0F 10 97 ?? ?? 00 00  83 F8 01  75 ??  F3 0F 11 9F ?? ?? 00 00  F3 0F 11 97 ?? ?? 00 00 E9 ?? ?? 00 00";
+	uintptr_t CameraEvent_CallAddress = 0;
 	uintptr_t CameraEvent_RetnAddress = 0;
 
-	void __declspec(naked) Asm_CameraEvent()
+	void __declspec(naked) Asm_CameraEvent_V1()
 	{
 		__asm 
 		{
 			pushad
-				call CameraEvent_Address
+				call CameraEvent_CallAddress
+			popad
+
+			jmp CameraEvent_RetnAddress
+		}
+	}
+
+	void __declspec(naked) Asm_CameraEvent_V2()
+	{
+		__asm
+		{
+			pushad
+				mov ecx, edi
+				call CameraEvent_CallAddress
 			popad
 
 			jmp CameraEvent_RetnAddress
@@ -120,26 +136,32 @@ namespace Hooks
 	}
 
 #endif
+	// Temporary code. Just quick fix, I will rewrite it later
 
-	bool Hook_CameraEvent()
+	// ETS2: 1.27 - 1.36 ATS: 1.6 - 1.36
+	bool Hook_V1()
 	{
-		auto pattern = hook::pattern(CameraEvent_pattern);
+#ifdef TESTING
+		printf("Trying HOOK V1...\n");
+#endif
+
+		auto pattern = hook::pattern(CameraEvent_pattern_V1);
 
 		if (pattern.size() > 0)
 		{
 			CameraEvent_addr = reinterpret_cast<uintptr_t>(pattern.count(1).get(0).get<void>(0));
 
-		#ifdef TESTING
+#ifdef TESTING
 			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
-		#endif
+#endif
 
 			gameCamOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 2) - 4;
 			gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 8);
 
-		#ifdef TESTING 
+#ifdef TESTING 
 			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
 			printf("Number of bytes to backup: %lld\n", sizeof(baseBytes));
-		#endif
+#endif
 
 			// backup bytes
 			for (int i = 0; i < sizeof(baseBytes); ++i)
@@ -149,38 +171,100 @@ namespace Hooks
 
 			MemMgr::UnprotectMemory(CameraEvent_addr, sizeof(baseBytes));
 
-			CameraEvent_Address = reinterpret_cast<uintptr_t>(CameraEvent);
-			CameraEvent_RetnAddress = CameraEvent_addr + sizeof(baseBytes);
-			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent);
+			CameraEvent_CallAddress = reinterpret_cast<uintptr_t>(CameraEvent);
+			CameraEvent_RetnAddress = CameraEvent_addr + 34;
+			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent_V1);
+
+#ifdef TESTING
+			printf("HOOK V1 activated\n");
+#endif
 
 			return true;
 		}
-		else
-		{
-			Mod::Get()->Log(SCS_LOG_TYPE_error, "Data structure is incorrect!");
-		#ifdef TESTING
-			std::cout << "Hook for CameraEvent not found!\n";
-		#endif
-			return false;
-		}
+
+#ifdef TESTING
+		printf("HOOK V1 don't work\n");
+#endif
+
+		return false;
 	}
+
+	// ETS2: 1.37+, ATS 1.37+
+	bool Hook_V2()
+	{
+#ifdef TESTING
+		printf("Trying HOOK V2...\n");
+#endif
+
+		auto pattern = hook::pattern(CameraEvent_pattern_V2);
+
+		if (pattern.size() > 0)
+		{
+			uintptr_t data_addr = reinterpret_cast<uintptr_t>(pattern.count(1).get(0).get<uintptr_t>(0));
+			CameraEvent_addr = data_addr + 21;
+
+#ifdef TESTING
+			std::cout << "CameraEvent addr: " << std::hex << CameraEvent_addr << "\n";
+#endif
+
+			gameCamOffset = *reinterpret_cast<std::uint16_t*>(data_addr + 4) - 4;
+			gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraEvent_addr + 4);
+
+#ifdef TESTING 
+			printf("Offsets: %i %i\n", gameCamOffset, gameCamPosOffset);
+			printf("Number of bytes to backup: %lld\n", sizeof(baseBytes));
+#endif
+
+			// backup bytes
+			for (int i = 0; i < sizeof(baseBytes); ++i)
+			{
+				baseBytes[i] = *reinterpret_cast<std::uint8_t*>(CameraEvent_addr + i);
+			}
+
+			MemMgr::UnprotectMemory(CameraEvent_addr, sizeof(baseBytes));
+
+			CameraEvent_CallAddress = reinterpret_cast<uintptr_t>(CameraEvent);
+			CameraEvent_RetnAddress = CameraEvent_addr + 16;
+			MemMgr::JmpHook(CameraEvent_addr, (uintptr_t)Asm_CameraEvent_V2);
+
+#ifdef TESTING
+			printf("HOOK V2 activated\n");
+#endif
+
+			return true;
+		}
+
+#ifdef TESTING
+		printf("HOOK V2 don't work\n");
+#endif
+
+		return false;
+	}
+
 
 	bool Init()
 	{
-	#ifdef TESTING
+		g_pMod = Mod::Get();
+
+#ifdef TESTING
 		std::cout << "Initializing hooks...\n";
 	#endif 
 
-		if (!Hook_CameraEvent())
-			return false;
+		if (Hook_V1())
+		{
+			return true;
+		}
 
-	#ifdef TESTING
-		std::cout << "Hooks initialized!\n";
-	#endif
+		if (Hook_V2())
+		{
+			return true;
+		}
 
-		g_pMod = Mod::Get();
-
-		return true;
+		Mod::Get()->Log(SCS_LOG_TYPE_error, "Data structure is incorrect!");
+#ifdef TESTING
+		std::cout << "Hook for CameraEvent not found!\n";
+#endif
+		return false;
 	}
 
 	void Unhook()
