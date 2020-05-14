@@ -1,10 +1,10 @@
 # Smooth Interior Camera
 
-[![Downloads](https://img.shields.io/github/downloads/Harry09/Smooth-Interior-Camera/total.svg?label=downloads&logo=GitHub)](https://github.com/Harry09/Smooth-Interior-Camera/releases)
 [![GitHub release](https://img.shields.io/github/release/Harry09/Smooth-Interior-Camera.svg)](https://github.com/Harry09/Smooth-Interior-Camera/releases/tag/1.3.1.0)
-[![Support via PayPal](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme2/PiotrKrupa)
 
 Camera mod for ETS 2 and ATS. Best experience with vsync and stable 60 fps
+
+## [Donate](https://www.paypal.me/PiotrKrupa/0usd)
 
 ## Video
 
