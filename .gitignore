@@ -1,0 +1,7 @@
+build
+.vscode/cquery_cached_index
+.clangd
+compile_commands.json
+.vs
+cmake-build-debug
+.idea
