@@ -2,6 +2,8 @@
 
 #include "Hry/Plugin.hpp"
 
+#include "ConfigData.hpp"
+
 class SIC : public hry::Plugin
 {
 private:
@@ -10,6 +12,8 @@ private:
                                  { "Piotr Krupa", "piotrkrupa06@gmail.com" },
                                  "TODO",
                                  hry::Version{ 2, 0, 0 } };
+
+    ConfigData _configData;
 
 public:
     inline static hry::Logger* Logger;
@@ -25,4 +29,7 @@ public:
 
     // replace with manifest.json
     const hry::PluginInfo& getPluginInfo() const override;
+
+private:
+    void onConfigChangesApplied(const hry::ConfigCallbackData& callbackData);
 };
