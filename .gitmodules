@@ -1,6 +1,0 @@
-[submodule "src/vendor/ets2-sdk"]
-	path = src/vendor/ets2-sdk
-	url = git://github.com/nlhans/ets2-sdk-plugin.git
-[submodule "src/vendor/json"]
-	path = src/vendor/json
-	url = git://github.com/nlohmann/json.git
