@@ -1,7 +1,9 @@
 #include "SIC.hpp"
 
-#include "Hry/Config/Fields/NumericField.hpp"
-#include "Hry/Config/Fields/SelectionField.hpp"
+#include <string>
+
+#include <Hry/Config/Fields/NumericField.hpp>
+#include <Hry/Config/Fields/SelectionField.hpp>
 
 #include "ConfigData.hpp"
 
@@ -43,6 +45,7 @@ void SIC::initConfig(hry::Config* config)
                     .setLabel("Rotation style")
                     .addOptions("Linear", "EaseInOut", "EaseOut")
                     .setDefaultValue("EaseInOut")
+                    .bind(&InternalConfigData::rotationStyle)
                     .useCombo()
                     .build());
 }
