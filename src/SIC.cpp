@@ -5,6 +5,8 @@
 #include <Hry/Config/Fields/NumericField.hpp>
 #include <Hry/Config/Fields/SelectionField.hpp>
 
+#include "Hooks/CameraHook.hpp"
+
 #include "ConfigData.hpp"
 
 struct InternalConfigData
@@ -16,12 +18,18 @@ struct InternalConfigData
 
 SIC::Result SIC::init(const SIC::InitParams&& initParams)
 {
+    // TODO: this check should be on hry-core side
     if (!hry::IsApiCompatible(initParams.apiVersion))
     {
         return SIC::Result::ApiNotSupported;
     }
 
     Logger = initParams.logger;
+
+    if (!CameraHook::Install())
+    {
+        return SIC::Result::GameNotSupported;
+    }
 
     return SIC::Result::Ok;
 }

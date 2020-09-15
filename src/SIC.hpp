@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hry/Plugin.hpp"
+#include <Hry/Plugin.hpp>
 
 #include "ConfigData.hpp"
 
