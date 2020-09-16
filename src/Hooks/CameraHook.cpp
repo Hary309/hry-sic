@@ -51,9 +51,9 @@ bool CameraHook::Install()
         detour = std::unique_ptr<hry::Detour>(
             new hry::Detour((void*)CameraUpdate_addr, (void*)CameraUpdate));
 
-        if (detour->hook() != hry::Detour::Status::Ok)
+        if (detour->create() != hry::Detour::Status::Ok)
         {
-            SIC::Logger->error("Cannot hook");
+            SIC::Logger->error("Cannot create hook");
             return false;
         }
 
