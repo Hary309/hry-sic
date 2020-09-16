@@ -2,6 +2,7 @@
 
 #include <Hry/Plugin.hpp>
 
+#include "CameraController.hpp"
 #include "ConfigData.hpp"
 
 class SIC : public hry::Plugin
@@ -13,7 +14,7 @@ private:
                                  "TODO",
                                  hry::Version{ 2, 0, 0 } };
 
-    ConfigData _configData;
+    CameraController _cameraController;
 
 public:
     inline static hry::Logger* Logger;
@@ -32,4 +33,5 @@ public:
 
 private:
     void onConfigChangesApplied(const hry::ConfigCallbackData& callbackData);
+    void onFrameStart(const hry::FrameEvent&& frameEvent);
 };
