@@ -9,19 +9,19 @@
 
 #include "SIC.hpp"
 
-static std::uint16_t gameCamEventOffset = 0;
-static std::uint16_t gameCamPosOffset = 0;
+static std::uint16_t cameraEventOffset = 0;
+static std::uint16_t camRotationOffset = 0;
 static std::unique_ptr<hry::Detour> detour;
 
 int64_t __stdcall CameraUpdate(uintptr_t gameCameraPtr)
 {
-    auto gameCamEvent =
-        reinterpret_cast<prism::InteriorCameraEvent*>(gameCameraPtr + gameCamEventOffset);
-    auto gameCamPos = reinterpret_cast<prism::InteriorCameraPos*>(gameCameraPtr + gameCamPosOffset);
+    auto cameraEvent =
+        reinterpret_cast<prism::InteriorCameraEvent*>(gameCameraPtr + cameraEventOffset);
+    auto cameraRotation = reinterpret_cast<Rotation*>(gameCameraPtr + camRotationOffset);
 
     auto result = detour->getOriginal<decltype(CameraUpdate)>()(gameCameraPtr);
 
-    CameraHook::OnCameraUpdate({ gameCamEvent, gameCamPos });
+    CameraHook::OnCameraUpdate({ cameraEvent, cameraRotation });
 
     return result;
 }
@@ -43,10 +43,10 @@ bool CameraHook::Install()
         uintptr_t CameraUpdate_dataOffset =
             reinterpret_cast<uintptr_t>(dataFieldsPattern.count(1).get(0).get<uintptr_t>(0));
 
-        gameCamEventOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 4) - 4;
-        gameCamPosOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 25);
+        cameraEventOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 4) - 4;
+        camRotationOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 25);
 
-        SIC::Logger->info("Event: {} Pos: {}", gameCamEventOffset, gameCamPosOffset);
+        SIC::Logger->info("Offset 1: {}, Offset 2: {}", cameraEventOffset, camRotationOffset);
 
         detour = std::unique_ptr<hry::Detour>(
             new hry::Detour((void*)CameraUpdate_addr, (void*)CameraUpdate));
