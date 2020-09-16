@@ -18,12 +18,6 @@ struct InternalConfigData
 
 SIC::Result SIC::init(const SIC::InitParams&& initParams)
 {
-    // TODO: this check should be on hry-core side
-    if (!hry::IsApiCompatible(initParams.apiVersion))
-    {
-        return SIC::Result::ApiNotSupported;
-    }
-
     Logger = initParams.logger;
 
     if (!CameraHook::Install())
