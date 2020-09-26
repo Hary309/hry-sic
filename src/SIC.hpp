@@ -1,9 +1,12 @@
 #pragma once
 
+#include <Hry/Config/Fields/NumericField.hpp>
 #include <Hry/Plugin.hpp>
 
 #include "CameraController.hpp"
 #include "ConfigData.hpp"
+#include "DefaultRotations.hpp"
+#include "RotationConverter.hpp"
 
 class SIC : public hry::Plugin
 {
@@ -15,6 +18,8 @@ private:
                                  hry::Version{ 2, 0, 0 } };
 
     CameraController _cameraController;
+
+    bool _isGamePaused = true;
 
 public:
     inline static hry::Logger* Logger;
@@ -33,5 +38,28 @@ public:
 
 private:
     void onConfigChangesApplied(const hry::ConfigCallbackData& callbackData);
-    void onFrameStart(const hry::FrameEvent&& frameEvent);
+    void onFrameStart(const hry::FrameStartEvent&& frameEvent);
+
+    template<typename ValueType, typename ClassType>
+    void addRotationField(
+        hry::Config* config,
+        const char* id,
+        const char* label,
+        Camera::Position position,
+        ValueType ClassType::*member)
+    {
+        const auto defaultRotation = DefaultRotations::GetRotation(position);
+        const auto normalizedRotation = RotationConverter::GetNormalized(defaultRotation);
+
+        config->add(hry::NumericFieldBuilder<float>()
+                        .setID(id)
+                        .setLabel(label)
+                        .bind(member)
+                        .setDefaultValue(normalizedRotation)
+                        .useSlider(-1.f, 1.f, "%.2f")
+                        .setPreviewCallback(hry::Dlg<&SIC::previewRotationValue>(this))
+                        .build());
+    }
+
+    void previewRotationValue(float value);
 };

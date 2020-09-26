@@ -71,3 +71,11 @@ void Camera::setRotation(Rotation rotation)
         *_cameraRotation = rotation;
     }
 }
+
+void Camera::setRotation(float rotation)
+{
+    if (_cameraRotation)
+    {
+        _cameraRotation->x = rotation;
+    }
+}

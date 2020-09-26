@@ -8,15 +8,20 @@
 
 #include "Hooks/CameraHook.hpp"
 
+#include "Camera.hpp"
 #include "ConfigData.hpp"
-
 
 struct InternalConfigData
 {
     float speed{};
     std::string rotationStyle;
     bool centerVertically;
-    float cameraPosition[6];
+    float lookForward;
+    float lookUpRight;
+    float lookUpLeft;
+    float lookRight;
+    float lookLeft;
+    float lookUpMiddle;
 };
 
 SIC::Result SIC::init(const SIC::InitParams&& initParams)
@@ -60,6 +65,25 @@ void SIC::initConfig(hry::Config* config)
                     .setDefaultValue(true)
                     .bind(&InternalConfigData::centerVertically)
                     .build());
+
+    addRotationField(
+        config, "look_forward", "Look Forward", Camera::Position::InteriorLookForward,
+        &InternalConfigData::lookForward);
+    addRotationField(
+        config, "look_up_right", "Look Up Right", Camera::Position::InteriorLookUpRight,
+        &InternalConfigData::lookUpRight);
+    addRotationField(
+        config, "look_up_left", "Look Up Left", Camera::Position::InteriorLookUpLeft,
+        &InternalConfigData::lookUpLeft);
+    addRotationField(
+        config, "look_right", "Look Right", Camera::Position::InteriorLookRight,
+        &InternalConfigData::lookRight);
+    addRotationField(
+        config, "look_left", "Look Left", Camera::Position::InteriorLookLeft,
+        &InternalConfigData::lookLeft);
+    addRotationField(
+        config, "look_up_middle", "Look Up Middle", Camera::Position::InteriorLookUpMiddle,
+        &InternalConfigData::lookUpMiddle);
 }
 
 void SIC::initKeyBinds(hry::KeyBinds* /*keyBinds*/)
@@ -92,12 +116,28 @@ void SIC::onConfigChangesApplied(const hry::ConfigCallbackData& callbackData)
     else if (data->rotationStyle == "EaseOut")
         configData.rotationStyle = Camera::RotationStyle::EaseOut;
 
+    std::memcpy(configData.cameraRotation.data(), &data->lookForward, sizeof(float) * 6);
+
+    for (auto& rotation : configData.cameraRotation)
+    {
+        rotation = RotationConverter::GetRotation(rotation);
+    }
+
     _cameraController.applyConfig(configData);
 }
 
-void SIC::onFrameStart(const hry::FrameEvent&& frameEvent)
+void SIC::onFrameStart(const hry::FrameStartEvent&& frameEvent)
 {
+    _isGamePaused = frameEvent.isGamePaused;
     _cameraController.update(frameEvent.deltaTime);
+}
+
+void SIC::previewRotationValue(float value)
+{
+    if (!_isGamePaused)
+    {
+        _cameraController.getCamera().setRotation(RotationConverter::GetRotation(value));
+    }
 }
 
 INIT_PLUGIN(SIC)

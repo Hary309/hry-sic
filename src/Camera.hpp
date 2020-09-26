@@ -1,6 +1,6 @@
 #pragma once
 
-#include "easing.hpp"
+#include <easing.hpp>
 
 #include "Game/InteriorCamera.hpp"
 
@@ -9,8 +9,6 @@ class CameraController;
 class Camera
 {
     friend CameraController;
-
-
 
 public:
     enum class RotationStyle
@@ -29,6 +27,9 @@ public:
         InteriorLookLeft,
         InteriorLookUpMiddle
     };
+
+    static constexpr auto MaxLeft = 2.904f;
+    static constexpr auto MaxRight = -2.294f;
 
 private:
     Easing::Function_t<float> _easingFunction = Easing::QuadraticEaseInOut;
@@ -58,5 +59,5 @@ public:
     void rotateTo(Rotation rotation);
 
     void setRotation(Rotation rotation);
-
+    void setRotation(float rx);
 };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include "Camera.hpp"
 
 struct ConfigData
@@ -7,5 +9,5 @@ struct ConfigData
     float speed{};
     Camera::RotationStyle rotationStyle{};
     bool centerVertically{};
-    float cameraPosition[6]{};
+    std::array<float, 6> cameraRotation;
 };

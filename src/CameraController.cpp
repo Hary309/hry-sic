@@ -3,7 +3,7 @@
 #include "Hooks/CameraHook.hpp"
 
 #include "ConfigData.hpp"
-
+#include "SIC.hpp"
 
 CameraController::CameraController()
 {
@@ -22,7 +22,12 @@ void CameraController::onGameCameraUpdate(const prism::InteriorCamera&& interior
     if (interiorCamera.event->event)
     {
         interiorCamera.event->event = false;
-        _camera.rotateTo(interiorCamera.event->dest);
+
+        const auto& dest = interiorCamera.event->dest;
+
+        const auto position = DefaultRotations::GetPosition(dest.x);
+
+        _camera.rotateTo({ _cameraRotation[static_cast<int>(position)], dest.y });
     }
 }
 
@@ -31,4 +36,6 @@ void CameraController::applyConfig(const ConfigData& configData)
     _camera._speedFactor = configData.speed;
     _camera._centerVertically = configData.centerVertically;
     _camera._rotationStyle = configData.rotationStyle;
+
+    _cameraRotation = configData.cameraRotation;
 }
