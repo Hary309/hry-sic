@@ -52,9 +52,9 @@ void Camera::rotateTo(Rotation rotation)
 
     switch (_rotationStyle)
     {
-        case RotationStyle::EaseInOut: _easingFunction = Easing::QuadraticEaseInOut; break;
-        case RotationStyle::EaseOut: _easingFunction = Easing::QuadraticEaseOut; break;
-        case RotationStyle::Linear: _easingFunction = Easing::LinearInterpolation; break;
+        case RotationStyle::EaseInOut: _easingFunction = hry::Easing::QuadraticEaseInOut; break;
+        case RotationStyle::EaseOut: _easingFunction = hry::Easing::QuadraticEaseOut; break;
+        case RotationStyle::Linear: _easingFunction = hry::Easing::LinearInterpolation; break;
     }
 
     _speed = (MaxSpeed * _speedFactor) / ((delta / 2.f) + 1.f);

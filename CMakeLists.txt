@@ -14,4 +14,4 @@ target_compile_options(hry-sic PRIVATE ${STATIC_FLAG})
 # replace it with find_package or sth, link already compiled hry-core
 target_link_libraries(hry-sic PRIVATE hry-core)
 
-target_include_directories(hry-sic PRIVATE src vendor/AHEasing)
+target_include_directories(hry-sic PRIVATE src)

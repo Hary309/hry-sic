@@ -1,6 +1,6 @@
 #pragma once
 
-#include <easing.hpp>
+#include <Hry/Utils/Easing.hpp>
 
 #include "Game/InteriorCamera.hpp"
 
@@ -32,7 +32,7 @@ public:
     static constexpr auto MaxRight = -2.294f;
 
 private:
-    Easing::Function_t<float> _easingFunction = Easing::QuadraticEaseInOut;
+    hry::Easing::Function_t<float> _easingFunction = hry::Easing::QuadraticEaseInOut;
 
     Rotation* _cameraRotation{};
 

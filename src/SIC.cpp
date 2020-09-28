@@ -118,10 +118,11 @@ void SIC::onConfigChangesApplied(const hry::ConfigCallbackData& callbackData)
 
     std::memcpy(configData.cameraRotation.data(), &data->lookForward, sizeof(float) * 6);
 
-    for (auto& rotation : configData.cameraRotation)
-    {
-        rotation = RotationConverter::GetRotation(rotation);
-    }
+    auto& rotations = configData.cameraRotation;
+
+    std::transform(rotations.begin(), rotations.end(), rotations.begin(), [](auto& norm) {
+        return RotationConverter::GetRotation(norm);
+    });
 
     _cameraController.applyConfig(configData);
 }
