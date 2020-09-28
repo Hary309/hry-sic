@@ -57,7 +57,7 @@ void CameraController::onKeyBindPress(Camera::Position position)
 
 void CameraController::onKeyBindRelease(Camera::Position position)
 {
-    if (_autoCenter && position == _selectedPosition)
+    if (_disableInGameEvent && _autoCenter && position == _selectedPosition)
     {
         _camera.rotateTo({ _cameraRotation[0], _verticalAngle });
     }
