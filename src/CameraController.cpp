@@ -23,11 +23,14 @@ void CameraController::onGameCameraUpdate(const prism::InteriorCamera&& interior
     {
         interiorCamera.event->event = false;
 
-        const auto& dest = interiorCamera.event->dest;
+        if (!_disableInGameEvent)
+        {
+            const auto& dest = interiorCamera.event->dest;
 
-        const auto position = DefaultRotations::GetPosition(dest.x);
+            const auto position = DefaultRotations::GetPosition(dest.x);
 
-        _camera.rotateTo({ _cameraRotation[static_cast<int>(position)], dest.y });
+            _camera.rotateTo({ _cameraRotation[static_cast<int>(position)], dest.y });
+        }
     }
 }
 
@@ -38,4 +41,24 @@ void CameraController::applyConfig(const ConfigData& configData)
     _camera._rotationStyle = configData.rotationStyle;
 
     _cameraRotation = configData.cameraRotation;
+    _disableInGameEvent = configData.experimentalFeatures;
+    _autoCenter = configData.autoCenter;
+    _verticalAngle = configData.verticalAngle;
+}
+
+void CameraController::onKeyBindPress(Camera::Position position)
+{
+    if (_disableInGameEvent)
+    {
+        _camera.rotateTo({ _cameraRotation[static_cast<int>(position)], _verticalAngle });
+        _selectedPosition = position;
+    }
+}
+
+void CameraController::onKeyBindRelease(Camera::Position position)
+{
+    if (_autoCenter && position == _selectedPosition)
+    {
+        _camera.rotateTo({ _cameraRotation[0], _verticalAngle });
+    }
 }

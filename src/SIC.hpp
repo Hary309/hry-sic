@@ -57,9 +57,33 @@ private:
                         .bind(member)
                         .setDefaultValue(normalizedRotation)
                         .useSlider(-1.f, 1.f, "%.2f")
-                        .setPreviewCallback(hry::Dlg<&SIC::previewRotationValue>(this))
+                        .setPreviewCallback(hry::Dlg<&SIC::previewRotationHorizontal>(this))
                         .build());
     }
 
-    void previewRotationValue(float value);
+    template<Camera::Position Position>
+    void addRotationKeybind(
+        hry::KeyBinds* keyBinds, const char* id, const char* label, hry::BindableKey::Key_t key)
+    {
+        keyBinds->add(hry::KeyBindBuilder()
+                          .setID(id)
+                          .setLabel(label)
+                          .setDefaultKey(key)
+                          .setActivator(hry::KeyBind::Activator::Click)
+                          .setPressCallback({ [](void* data, hry::ButtonState /**/) {
+                                                 auto* self = reinterpret_cast<SIC*>(data);
+                                                 self->_cameraController.onKeyBindPress(Position);
+                                             },
+                                              this })
+                          .setReleaseCallback({ [](void* data, hry::ButtonState /**/) {
+                                                   auto* self = reinterpret_cast<SIC*>(data);
+                                                   self->_cameraController.onKeyBindRelease(
+                                                       Position);
+                                               },
+                                                this })
+                          .build());
+    }
+
+    void previewRotationHorizontal(float value);
+    void previewRotationVertical(float value);
 };

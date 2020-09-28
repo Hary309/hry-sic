@@ -10,4 +10,8 @@ struct ConfigData
     Camera::RotationStyle rotationStyle{};
     bool centerVertically{};
     std::array<float, 6> cameraRotation;
+
+    bool experimentalFeatures;
+    float verticalAngle;
+    bool autoCenter;
 };

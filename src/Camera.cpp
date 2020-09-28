@@ -36,6 +36,11 @@ void Camera::update(float deltaTime)
 
 void Camera::rotateTo(Rotation rotation)
 {
+    if (_cameraRotation == nullptr)
+    {
+        return;
+    }
+
     if (_cameraRotation->x == rotation.x)
     {
         _cameraRotation->y = rotation.y;
@@ -72,10 +77,18 @@ void Camera::setRotation(Rotation rotation)
     }
 }
 
-void Camera::setRotation(float rotation)
+void Camera::setRotationRX(float rotation)
 {
     if (_cameraRotation)
     {
         _cameraRotation->x = rotation;
+    }
+}
+
+void Camera::setRotationRY(float rotation)
+{
+    if (_cameraRotation)
+    {
+        _cameraRotation->y = rotation;
     }
 }

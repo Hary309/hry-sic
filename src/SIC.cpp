@@ -22,6 +22,10 @@ struct InternalConfigData
     float lookRight;
     float lookLeft;
     float lookUpMiddle;
+
+    bool experimentalFeatures;
+    float verticalAngle;
+    bool autoCenter;
 };
 
 SIC::Result SIC::init(const SIC::InitParams&& initParams)
@@ -84,10 +88,57 @@ void SIC::initConfig(hry::Config* config)
     addRotationField(
         config, "look_up_middle", "Look Up Middle", Camera::Position::InteriorLookUpMiddle,
         &InternalConfigData::lookUpMiddle);
+
+    config->add(hry::BoolFieldBuilder()
+                    .setID("experimental_features")
+                    .setLabel("Experimental features")
+                    .setDescription("This turns on custom keybinds and every field below work "
+                                    "only when this field is enabled")
+                    .setDefaultValue(false)
+                    .bind(&InternalConfigData::experimentalFeatures)
+                    .build());
+
+    config->add(hry::NumericFieldBuilder<float>()
+                    .setID("vertical_angle")
+                    .setLabel("Vertical angle")
+                    .setDescription("Only work when 'Experimental features' is checked")
+                    .bind(&InternalConfigData::verticalAngle)
+                    .setDefaultValue(0.f)
+                    .useDrag(0.001f, -1.f, 1.f)
+                    .setPreviewCallback(hry::Dlg<&SIC::previewRotationVertical>(this))
+                    .build());
+
+    config->add(hry::BoolFieldBuilder()
+                    .setID("auto_center")
+                    .setLabel("Auto-Center")
+                    .setDescription("Only work when 'Experimental features' is checked")
+                    .bind(&InternalConfigData::autoCenter)
+                    .build());
 }
 
-void SIC::initKeyBinds(hry::KeyBinds* /*keyBinds*/)
+void SIC::initKeyBinds(hry::KeyBinds* keyBinds)
 {
+    using Position = Camera::Position;
+
+    // TODO: add desc to keybinds
+
+    addRotationKeybind<Position::InteriorLookForward>(
+        keyBinds, "look_forward", "Look Forward", hry::Keyboard::Key::Numpad5);
+
+    addRotationKeybind<Position::InteriorLookUpRight>(
+        keyBinds, "look_up_right", "Look Up Right", hry::Keyboard::Key::Numpad9);
+
+    addRotationKeybind<Position::InteriorLookUpLeft>(
+        keyBinds, "look_up_left", "Look Up Left", hry::Keyboard::Key::Numpad7);
+
+    addRotationKeybind<Position::InteriorLookRight>(
+        keyBinds, "look_right", "Look Right", hry::Keyboard::Key::Numpad6);
+
+    addRotationKeybind<Position::InteriorLookLeft>(
+        keyBinds, "look_left", "Look Left", hry::Keyboard::Key::Numpad4);
+
+    addRotationKeybind<Position::InteriorLookUpMiddle>(
+        keyBinds, "look_up_middle", "Look Up Middle", hry::Keyboard::Key::Numpad8);
 }
 
 void SIC::initEvents(hry::EventHandler* event)
@@ -124,6 +175,10 @@ void SIC::onConfigChangesApplied(const hry::ConfigCallbackData& callbackData)
         return RotationConverter::GetRotation(norm);
     });
 
+    configData.experimentalFeatures = data->experimentalFeatures;
+    configData.autoCenter = data->autoCenter;
+    configData.verticalAngle = data->verticalAngle;
+
     _cameraController.applyConfig(configData);
 }
 
@@ -133,11 +188,19 @@ void SIC::onFrameStart(const hry::FrameStartEvent&& frameEvent)
     _cameraController.update(frameEvent.deltaTime);
 }
 
-void SIC::previewRotationValue(float value)
+void SIC::previewRotationHorizontal(float value)
 {
     if (!_isGamePaused)
     {
-        _cameraController.getCamera().setRotation(RotationConverter::GetRotation(value));
+        _cameraController.getCamera().setRotationRX(RotationConverter::GetRotation(value));
+    }
+}
+
+void SIC::previewRotationVertical(float value) 
+{
+    if (!_isGamePaused)
+    {
+        _cameraController.getCamera().setRotationRY(value);
     }
 }
 
