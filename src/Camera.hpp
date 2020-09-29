@@ -59,6 +59,6 @@ public:
     void rotateTo(Rotation rotation);
 
     void setRotation(Rotation rotation);
-    void setRotationRX(float rx);
-    void setRotationRY(float ry);
+    void setRX(float rx);
+    void setRY(float ry);
 };

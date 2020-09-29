@@ -77,7 +77,7 @@ void Camera::setRotation(Rotation rotation)
     }
 }
 
-void Camera::setRotationRX(float rotation)
+void Camera::setRX(float rotation)
 {
     if (_cameraRotation)
     {
@@ -85,7 +85,7 @@ void Camera::setRotationRX(float rotation)
     }
 }
 
-void Camera::setRotationRY(float rotation)
+void Camera::setRY(float rotation)
 {
     if (_cameraRotation)
     {

@@ -192,15 +192,15 @@ void SIC::previewRotationHorizontal(float value)
 {
     if (!_isGamePaused)
     {
-        _cameraController.getCamera().setRotationRX(RotationConverter::GetRotation(value));
+        _cameraController.getCamera().setRX(RotationConverter::GetRotation(value));
     }
 }
 
-void SIC::previewRotationVertical(float value) 
+void SIC::previewRotationVertical(float value)
 {
     if (!_isGamePaused)
     {
-        _cameraController.getCamera().setRotationRY(value);
+        _cameraController.getCamera().setRY(value);
     }
 }
 
