@@ -65,23 +65,25 @@ private:
     void addRotationKeybind(
         hry::KeyBinds* keyBinds, const char* id, const char* label, hry::BindableKey::Key_t key)
     {
-        keyBinds->add(hry::KeyBindBuilder()
-                          .setID(id)
-                          .setLabel(label)
-                          .setDefaultKey(key)
-                          .setActivator(hry::KeyBind::Activator::Click)
-                          .setPressCallback({ [](void* data, hry::ButtonState /**/) {
-                                                 auto* self = reinterpret_cast<SIC*>(data);
-                                                 self->_cameraController.onKeyBindPress(Position);
-                                             },
-                                              this })
-                          .setReleaseCallback({ [](void* data, hry::ButtonState /**/) {
-                                                   auto* self = reinterpret_cast<SIC*>(data);
-                                                   self->_cameraController.onKeyBindRelease(
-                                                       Position);
-                                               },
-                                                this })
-                          .build());
+        keyBinds->add(
+            hry::KeyBindBuilder()
+                .setID(id)
+                .setLabel(label)
+                .setDescription(
+                    "This keybind works only when 'Experimental features' in settings is checked")
+                .setDefaultKey(key)
+                .setActivator(hry::KeyBind::Activator::Click)
+                .setPressCallback({ [](void* data, hry::ButtonState /**/) {
+                                       auto* self = reinterpret_cast<SIC*>(data);
+                                       self->_cameraController.onKeyBindPress(Position);
+                                   },
+                                    this })
+                .setReleaseCallback({ [](void* data, hry::ButtonState /**/) {
+                                         auto* self = reinterpret_cast<SIC*>(data);
+                                         self->_cameraController.onKeyBindRelease(Position);
+                                     },
+                                      this })
+                .build());
     }
 
     void previewRotationHorizontal(float value);
