@@ -11,11 +11,7 @@
 class SIC : public hry::Plugin
 {
 private:
-    hry::PluginInfo _pluginInfo{ "hry-sic",
-                                 "Smooth Interior Camera",
-                                 { "Piotr Krupa", "piotrkrupa06@gmail.com" },
-                                 "TODO",
-                                 hry::Version{ 2, 0, 0 } };
+    hry::PluginInfo _pluginInfo{};
 
     CameraController _cameraController;
 
@@ -25,6 +21,8 @@ public:
     inline static hry::Logger* Logger;
 
 public:
+    SIC();
+
     Result init(const InitParams&& initParams) override;
 
     void initConfig(hry::Config* config) override;
@@ -70,7 +68,7 @@ private:
                 .setID(id)
                 .setLabel(label)
                 .setDescription(
-                    "This keybind works only when 'Experimental features' in settings is checked")
+                    "This keybind works only when 'Experimental features' in settings is enabled")
                 .setDefaultKey(key)
                 .setActivator(hry::KeyBind::Activator::Click)
                 .setPressCallback({ [](void* data, hry::ButtonState /**/) {

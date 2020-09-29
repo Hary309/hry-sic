@@ -28,6 +28,23 @@ struct InternalConfigData
     bool autoCenter;
 };
 
+SIC::SIC()
+    : _pluginInfo{ hry::PluginInfo{ "hry-sic",
+                                    "Smooth Interior Camera",
+                                    { "Piotr Krupa", "piotrkrupa06@gmail.com" },
+                                    R"(
+## About
+hry-sic adds rotation animation
+## Changelog
+  * 2.0
+    * Added UI
+    * Added centering vertically
+    * Added auto-centering
+                                    )",
+                                    hry::Version{ 2, 0, 0 } } }
+{
+}
+
 SIC::Result SIC::init(const SIC::InitParams&& initParams)
 {
     Logger = initParams.logger;
@@ -119,8 +136,6 @@ void SIC::initConfig(hry::Config* config)
 void SIC::initKeyBinds(hry::KeyBinds* keyBinds)
 {
     using Position = Camera::Position;
-
-    // TODO: add desc to keybinds
 
     addRotationKeybind<Position::InteriorLookForward>(
         keyBinds, "look_forward", "Look Forward", hry::Keyboard::Key::Numpad5);
