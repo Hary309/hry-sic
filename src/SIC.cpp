@@ -34,7 +34,7 @@ SIC::SIC()
                                     { "Piotr Krupa", "piotrkrupa06@gmail.com" },
                                     R"(
 ## About
-hry-sic adds rotation animation
+hry-sic improves interior camera by adding smooth rotation animation.
 ## Changelog
   * 2.0
     * Added UI
