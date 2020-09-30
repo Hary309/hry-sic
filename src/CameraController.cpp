@@ -1,3 +1,9 @@
+/**
+ * This file is part of the hry-sic project
+ * @ Author: Piotr Krupa <piotrkrupa06@gmail.com>
+ * @ License: MIT License
+ */
+
 #include "CameraController.hpp"
 
 #include "Hooks/CameraHook.hpp"
