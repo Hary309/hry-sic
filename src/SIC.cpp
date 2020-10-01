@@ -98,20 +98,20 @@ void SIC::initConfig(hry::Config* config)
         config, "look_forward", "Look Forward", Camera::Position::InteriorLookForward,
         &InternalConfigData::lookForward);
     addRotationField(
-        config, "look_up_right", "Look Up Right", Camera::Position::InteriorLookUpRight,
-        &InternalConfigData::lookUpRight);
+        config, "look_up_middle", "Look Up Middle", Camera::Position::InteriorLookUpMiddle,
+        &InternalConfigData::lookUpMiddle);
     addRotationField(
         config, "look_up_left", "Look Up Left", Camera::Position::InteriorLookUpLeft,
         &InternalConfigData::lookUpLeft);
     addRotationField(
-        config, "look_right", "Look Right", Camera::Position::InteriorLookRight,
-        &InternalConfigData::lookRight);
+        config, "look_up_right", "Look Up Right", Camera::Position::InteriorLookUpRight,
+        &InternalConfigData::lookUpRight);
     addRotationField(
         config, "look_left", "Look Left", Camera::Position::InteriorLookLeft,
         &InternalConfigData::lookLeft);
     addRotationField(
-        config, "look_up_middle", "Look Up Middle", Camera::Position::InteriorLookUpMiddle,
-        &InternalConfigData::lookUpMiddle);
+        config, "look_right", "Look Right", Camera::Position::InteriorLookRight,
+        &InternalConfigData::lookRight);
 
     config->add(hry::BoolFieldBuilder()
                     .setID("experimental_features")
@@ -147,20 +147,20 @@ void SIC::initKeyBinds(hry::KeyBinds* keyBinds)
     addRotationKeybind<Position::InteriorLookForward>(
         keyBinds, "look_forward", "Look Forward", hry::Keyboard::Key::Numpad5);
 
-    addRotationKeybind<Position::InteriorLookUpRight>(
-        keyBinds, "look_up_right", "Look Up Right", hry::Keyboard::Key::Numpad9);
+    addRotationKeybind<Position::InteriorLookUpMiddle>(
+        keyBinds, "look_up_middle", "Look Up Middle", hry::Keyboard::Key::Numpad8);
 
     addRotationKeybind<Position::InteriorLookUpLeft>(
         keyBinds, "look_up_left", "Look Up Left", hry::Keyboard::Key::Numpad7);
 
-    addRotationKeybind<Position::InteriorLookRight>(
-        keyBinds, "look_right", "Look Right", hry::Keyboard::Key::Numpad6);
+    addRotationKeybind<Position::InteriorLookUpRight>(
+        keyBinds, "look_up_right", "Look Up Right", hry::Keyboard::Key::Numpad9);
 
     addRotationKeybind<Position::InteriorLookLeft>(
         keyBinds, "look_left", "Look Left", hry::Keyboard::Key::Numpad4);
 
-    addRotationKeybind<Position::InteriorLookUpMiddle>(
-        keyBinds, "look_up_middle", "Look Up Middle", hry::Keyboard::Key::Numpad8);
+    addRotationKeybind<Position::InteriorLookRight>(
+        keyBinds, "look_right", "Look Right", hry::Keyboard::Key::Numpad6);
 }
 
 void SIC::initEvents(hry::EventHandler* event)
