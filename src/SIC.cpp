@@ -44,9 +44,11 @@ SIC::SIC()
 hry-sic improves interior camera by adding smooth rotation animation.
 ## Changelog
   * 2.0
+    * Dropped x86 (again :(), but you can still use the old version
     * Added UI
     * Added centering vertically
     * Added auto-centering
+    * (Probably) fixed stuttering bug with FPS other than 60
                                     )",
                                     hry::Version{ 2, 0, 0 } } }
 {
