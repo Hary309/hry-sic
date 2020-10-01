@@ -35,46 +35,53 @@ int64_t __stdcall CameraUpdate(uintptr_t gameCameraPtr)
 bool CameraHook::Install()
 {
     hry::pattern functionPattern(
-        std::string_view("48 83 EC ?  48 8B D1  45 32 C0  48 8B 89 ? ? ? ?  48 85 C9  74 ? "));
+        std::string_view("48 83 ? ?  48 8B ?  45 32 ?  48 8B ? ? ? ? ?  48 ? ?  74"));
     hry::pattern dataFieldsPattern(
         std::string_view("F3 0F 10 ? ? ? 00 00  F3 0F 10 ? ? ? 00 00  83 F8 01  75 ?  F3 0F 11 ? ? "
                          "? 00 00  F3 0F 11 ? ? ? 00 00  89 9F ? ? 00 00  E9 ? ? 00 00"));
 
     SIC::Logger->info("Searching for pattern...");
 
-    if (functionPattern.size() > 0 && dataFieldsPattern.size() > 0)
+    if (functionPattern.empty())
     {
-        uintptr_t CameraUpdate_addr =
-            reinterpret_cast<uintptr_t>(functionPattern.count(1).get(0).get<uintptr_t>(0));
-        uintptr_t CameraUpdate_dataOffset =
-            reinterpret_cast<uintptr_t>(dataFieldsPattern.count(1).get(0).get<uintptr_t>(0));
-
-        cameraEventOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 4) - 4;
-        camRotationOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 25);
-
-        SIC::Logger->info("Offset 1: {}, Offset 2: {}", cameraEventOffset, camRotationOffset);
-
-        detour = std::unique_ptr<hry::Detour>(
-            new hry::Detour((void*)CameraUpdate_addr, (void*)CameraUpdate));
-
-        if (detour->create() != hry::Detour::Status::Ok)
-        {
-            SIC::Logger->error("Cannot create hook");
-            return false;
-        }
-
-        if (detour->enable() != hry::Detour::Status::Ok)
-        {
-            SIC::Logger->error("Cannot enable hook");
-            return false;
-        }
-
-        SIC::Logger->info("Hook successfully installed");
-
-        return true;
+        SIC::Logger->error("Cannot find function pattern");
+        return false;
     }
 
-    return false;
+    if (dataFieldsPattern.empty())
+    {
+        SIC::Logger->error("Cannot find data pattern");
+        return false;
+    }
+
+    uintptr_t CameraUpdate_addr =
+        reinterpret_cast<uintptr_t>(functionPattern.count(1).get(0).get<uintptr_t>(0));
+    uintptr_t CameraUpdate_dataOffset =
+        reinterpret_cast<uintptr_t>(dataFieldsPattern.count(1).get(0).get<uintptr_t>(0));
+
+    cameraEventOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 4) - 4;
+    camRotationOffset = *reinterpret_cast<std::uint16_t*>(CameraUpdate_dataOffset + 25);
+
+    SIC::Logger->info("Offset 1: {}, Offset 2: {}", cameraEventOffset, camRotationOffset);
+
+    detour = std::unique_ptr<hry::Detour>(
+        new hry::Detour((void*)CameraUpdate_addr, (void*)CameraUpdate));
+
+    if (detour->create() != hry::Detour::Status::Ok)
+    {
+        SIC::Logger->error("Cannot create hook");
+        return false;
+    }
+
+    if (detour->enable() != hry::Detour::Status::Ok)
+    {
+        SIC::Logger->error("Cannot enable hook");
+        return false;
+    }
+
+    SIC::Logger->info("Hook successfully installed");
+
+    return true;
 }
 
 void CameraHook::Uninstall()
