@@ -25,9 +25,9 @@ void CameraController::onGameCameraUpdate(const prism::InteriorCamera&& interior
 {
     _camera._cameraRotation = interiorCamera.rotation;
 
-    if (interiorCamera.event->event)
+    if (interiorCamera.event->event > 0)
     {
-        interiorCamera.event->event = false;
+        interiorCamera.event->event = 0;
 
         if (!_disableInGameEvent)
         {
