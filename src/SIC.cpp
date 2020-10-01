@@ -84,7 +84,6 @@ void SIC::initConfig(hry::Config* config)
                     .addOptions("Linear", "EaseInOut", "EaseOut")
                     .setDefaultValue("EaseInOut")
                     .bind(&InternalConfigData::rotationStyle)
-                    .useCombo()
                     .build());
 
     config->add(hry::BoolFieldBuilder()
