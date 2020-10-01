@@ -38,6 +38,7 @@ SIC::SIC()
     : _pluginInfo{ hry::PluginInfo{ "hry-sic",
                                     "Smooth Interior Camera",
                                     { "Piotr Krupa", "piotrkrupa06@gmail.com" },
+                                    "https://hary309.github.io/projects/hry-plugins/hry-sic",
                                     R"(
 ## About
 hry-sic improves interior camera by adding smooth rotation animation.
