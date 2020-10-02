@@ -35,7 +35,7 @@ public:
 
     void initKeyBinds(hry::KeyBinds* keyBinds) override;
 
-    void initEvents(hry::EventHandler* eventHandler) override;
+    void initEvents(hry::EventDispatcher* dispatcher) override;
 
     // replace with manifest.json
     const hry::PluginInfo& getPluginInfo() const override;

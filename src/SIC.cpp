@@ -164,9 +164,9 @@ void SIC::initKeyBinds(hry::KeyBinds* keyBinds)
         keyBinds, "look_right", "Look Right", hry::Keyboard::Key::Numpad6);
 }
 
-void SIC::initEvents(hry::EventHandler* event)
+void SIC::initEvents(hry::EventDispatcher* dispatcher)
 {
-    event->game.onFrameStart.connect<&SIC::onFrameStart>(this);
+    dispatcher->game.onFrameStart.connect<&SIC::onFrameStart>(this);
 }
 
 const hry::PluginInfo& SIC::getPluginInfo() const
