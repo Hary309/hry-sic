@@ -21,6 +21,8 @@ class CameraController
 private:
     Camera _camera;
 
+    const bool& _isGamePaused;
+
     std::array<float, 6> _cameraRotation;
 
     bool _disableInGameEvent = false;
@@ -30,7 +32,7 @@ private:
     Camera::Position _selectedPosition = Camera::Position::InteriorLookForward;
 
 public:
-    CameraController();
+    CameraController(const bool& isGamePaused);
 
     void update(float deltaTime);
 

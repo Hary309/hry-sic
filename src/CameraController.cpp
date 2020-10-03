@@ -11,7 +11,7 @@
 #include "ConfigData.hpp"
 #include "SIC.hpp"
 
-CameraController::CameraController()
+CameraController::CameraController(const bool& isGamePaused) : _isGamePaused(isGamePaused)
 {
     CameraHook::OnCameraUpdate.connect<&CameraController::onGameCameraUpdate>(this);
 }
@@ -23,6 +23,11 @@ void CameraController::update(float deltaTime)
 
 void CameraController::onGameCameraUpdate(const prism::InteriorCamera&& interiorCamera)
 {
+    if (_isGamePaused)
+    {
+        return;
+    }
+
     _camera._cameraRotation = interiorCamera.rotation;
 
     if (interiorCamera.event->event > 0)
@@ -54,6 +59,11 @@ void CameraController::applyConfig(const ConfigData& configData)
 
 void CameraController::onKeyBindPress(Camera::Position position)
 {
+    if (_isGamePaused)
+    {
+        return;
+    }
+
     if (_disableInGameEvent)
     {
         _camera.rotateTo({ _cameraRotation[static_cast<int>(position)], _verticalAngle });
@@ -63,6 +73,11 @@ void CameraController::onKeyBindPress(Camera::Position position)
 
 void CameraController::onKeyBindRelease(Camera::Position position)
 {
+    if (_isGamePaused)
+    {
+        return;
+    }
+
     if (_disableInGameEvent && _autoCenter && position == _selectedPosition &&
         position != Camera::Position::InteriorLookForward)
     {

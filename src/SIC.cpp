@@ -34,24 +34,9 @@ struct InternalConfigData
     bool autoCenter;
 };
 
-SIC::SIC()
-    : _pluginInfo{ hry::PluginInfo{ "hry-sic",
-                                    "Smooth Interior Camera",
-                                    { "Piotr Krupa", "piotrkrupa06@gmail.com" },
-                                    "https://hary309.github.io/projects/hry-plugins/hry-sic",
-                                    R"(
-## About
-hry-sic improves interior camera by adding smooth rotation animation.
-## Changelog
-  * 2.0
-    * Dropped x86 (again :(), but you can still use the old version
-    * Added UI
-    * Added centering vertically
-    * Added auto-centering
-    * (Probably) fixed stuttering bug with FPS other than 60
-                                    )",
-                                    hry::Version{ 2, 0, 0 } } }
+SIC::SIC() : _cameraController(_isGamePaused)
 {
+    fillPluginInfo();
 }
 
 SIC::Result SIC::init(const SIC::InitParams&& initParams)
@@ -225,6 +210,26 @@ void SIC::previewRotationVertical(float value)
     {
         _cameraController.getCamera().setRY(value);
     }
+}
+
+void SIC::fillPluginInfo()
+{
+    _pluginInfo.name = "hry-sic";
+    _pluginInfo.fullName = "Smooth Interior Camera";
+    _pluginInfo.authorInfo = { "Piotr Krupa", "piotrkrupa06@gmail.com" };
+    _pluginInfo.website = "https://hary309.github.io/projects/hry-plugins/hry-sic";
+    _pluginInfo.version = { 2, 0, 0 };
+    _pluginInfo.desc = R"(
+## About
+hry-sic improves interior camera by adding smooth rotation animation.
+## Changelog
+  * 2.0
+    * Dropped x86 (again :(), but you can still use the old version
+    * Added UI
+    * Added centering vertically
+    * Added auto-centering
+    * (Probably) fixed stuttering bug with FPS other than 60
+                                    )";
 }
 
 INIT_PLUGIN(SIC)

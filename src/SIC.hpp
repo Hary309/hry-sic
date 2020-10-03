@@ -92,4 +92,6 @@ private:
 
     void previewRotationHorizontal(float value);
     void previewRotationVertical(float value);
+
+    void fillPluginInfo();
 };
