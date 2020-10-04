@@ -111,7 +111,7 @@ void SIC::initConfig(hry::Config* config)
     config->add(hry::NumericFieldBuilder<float>()
                     .setID("vertical_angle")
                     .setLabel("Vertical angle")
-                    .setDescription("Only work when 'Experimental features' is checked")
+                    .setDescription("Only work when 'Experimental features' is enabled")
                     .bind(&InternalConfigData::verticalAngle)
                     .setDefaultValue(0.f)
                     .useDrag(0.001f, -1.f, 1.f)
@@ -121,7 +121,7 @@ void SIC::initConfig(hry::Config* config)
     config->add(hry::BoolFieldBuilder()
                     .setID("auto_center")
                     .setLabel("Auto-Center")
-                    .setDescription("Only work when 'Experimental features' is checked")
+                    .setDescription("Only work when 'Experimental features' is enabled")
                     .bind(&InternalConfigData::autoCenter)
                     .build());
 }
@@ -224,11 +224,11 @@ void SIC::fillPluginInfo()
 hry-sic improves interior camera by adding smooth rotation animation.
 ## Changelog
   * 2.0
-    * Dropped x86 (again :(), but you can still use the old version
     * Added UI
     * Added centering vertically
     * Added auto-centering
     * (Probably) fixed stuttering bug with FPS other than 60
+    * Dropped x86 (again :(), but you can still use the old version)
                                     )";
 }
 
