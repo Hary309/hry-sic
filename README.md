@@ -23,7 +23,7 @@ youtube video here
 
 ## How to open Main Window
 
-To open Main Window press F9 (you can change this bind in `Key binds` section)
+To open Main Window press `Delete` (you can change this bind in `Key binds` section)
 
 ## How to install
 
