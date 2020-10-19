@@ -83,13 +83,13 @@ begin
   ATSDirPage := CreateInputDirPage(
     wpSelectComponents, 'Select American Truck Simulator main directory', 'Where American Truck Simulator is installed?', '', False, '');
 
-  ATSDirPage.Add('Main directory');
+  ATSDirPage.Add('ETS 2 Main directory');
   ATSDirPage.Values[0] := GetPreviousData('ATSDirectory', '');
   
   ETS2DirPage := CreateInputDirPage(
     wpSelectComponents, 'Select Euro Truck Simulator 2 main directory', 'Where Euro Truck Simulator 2 is installed?', '', False, '');
 
-  ETS2DirPage.Add('Main directory');
+  ETS2DirPage.Add('ATS Main directory');
   ETS2DirPage.Values[0] := GetPreviousData('ETS2Directory', '');
 end;
 
