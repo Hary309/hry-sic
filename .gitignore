@@ -6,4 +6,7 @@ compile_commands.json
 cmake-build-debug
 .idea
 .cache
-installer/*.exe
+deploy/installer/*.zip
+deploy/installer/*.exe
+deploy/portable/plugins
+deploy/portable/*.zip
