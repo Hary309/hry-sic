@@ -10,6 +10,8 @@ Keep it in mind that this is still in beta, so it may cause some bug or crashes,
 
 ## [Buy me a Coffee](https://ko-fi.com/hary309)
 
+## [Download](https://hary309.github.io/projects/hry-plugins/hry-sic)
+
 ## Showcase
 
 [![Image](http://img.youtube.com/vi/0xcGTXZpdXI/0.jpg)](http://www.youtube.com/watch?v=0xcGTXZpdXI)/
@@ -25,11 +27,20 @@ Keep it in mind that this is still in beta, so it may cause some bug or crashes,
 
 To open Main Window press `Delete` (you can change this bind in `Key binds` section)
 
-## How to install
+## How to install via installer (recommended)
 
+1. Download `Installer` and extract file
+1. Run installer
+1. Choose game which you want to mod
+1. Select path to **Main directory** of game
+1. Run game in x64 mode (it should be by default)
+
+## How to install portable
+
+1. Download `Portable`
 1. Locate **ETS 2** or **ATS** directory
 1. Then go to `bin/win_x64`
-1. And extract the archive to `plugins` (if directory doesn't exists, create it)
+1. And extract the archive
 1. Run game in x64 mode (it should be by default)
 
 ## How to report a bug/crash
