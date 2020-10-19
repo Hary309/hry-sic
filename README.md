@@ -12,7 +12,7 @@ Keep it in mind that this is still in beta, so it may cause some bug or crashes,
 
 ## Showcase
 
-youtube video here
+[![Image](http://img.youtube.com/vi/0xcGTXZpdXI/0.jpg)](http://www.youtube.com/watch?v=0xcGTXZpdXI)/
 
 ## Features
 
