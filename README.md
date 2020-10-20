@@ -8,8 +8,6 @@ Smooth Interior Camera is mod that improves interior camera by adding smooth rot
 
 Keep it in mind that this is still in beta, so it may cause some bug or crashes, look at `How to report a bug/crash` to report such thing.
 
-## [Buy me a Coffee](https://ko-fi.com/hary309)
-
 ## [Download](https://hary309.github.io/projects/hry-plugins/hry-sic)
 
 ## Showcase
