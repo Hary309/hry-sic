@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Smooth Interior Camera"
-#define MyAppVersion "2.0"
+#define MyAppVersion "2.0.1"
 #define MyAppPublisher "Piotr Krupa"
 #define MyAppURL "https://hary309.github.io/projects/hry-plugins/hry-sic"
 
@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Projects\git\hry-sic\installer
+OutputDir=C:\Projects\git\hry-sic\deploy\installer
 OutputBaseFilename=hry-sic
 Compression=lzma
 SolidCompression=yes
