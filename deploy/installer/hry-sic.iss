@@ -44,13 +44,13 @@ Name: "ets2"; Description: "Install for Euro Truck Simulator 2"; Types: full ets
 Name: "ats"; Description: "Install for American Truck Simulator"; Types: full ats
 
 [Files]
-Source: "..\..\build\vendor\hry-core\hry-core.dll"; DestDir: "{code:GetETS2BinDir}\plugins"; Flags: ignoreversion; Check: CheckInstallETS2
+Source: "..\..\vendor\hry-core\bin\release\hry-core.dll"; DestDir: "{code:GetETS2BinDir}\plugins"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\build\hry-sic.dll"; DestDir: "{code:GetETS2BinDir}\plugins\hry_plugins"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\vendor\hry-core\assets\icons.ttf"; DestDir: "{code:GetETS2BinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\vendor\hry-core\assets\OpenSans-Bold.ttf"; DestDir: "{code:GetETS2BinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\vendor\hry-core\assets\OpenSans-Regular.ttf"; DestDir: "{code:GetETS2BinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallETS2
 
-Source: "..\..\build\vendor\hry-core\hry-core.dll"; DestDir: "{code:GetATSBinDir}\plugins"; Flags: ignoreversion; Check: CheckInstallATS
+Source: "..\..\vendor\hry-core\bin\release\hry-core.dll"; DestDir: "{code:GetATSBinDir}\plugins"; Flags: ignoreversion; Check: CheckInstallATS
 Source: "..\..\build\hry-sic.dll"; DestDir: "{code:GetATSBinDir}\plugins\hry_plugins"; Flags: ignoreversion; Check: CheckInstallATS
 Source: "..\..\vendor\hry-core\assets\icons.ttf"; DestDir: "{code:GetATSBinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallATS
 Source: "..\..\vendor\hry-core\assets\OpenSans-Bold.ttf"; DestDir: "{code:GetATSBinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallATS
