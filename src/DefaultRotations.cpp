@@ -21,6 +21,8 @@ float DefaultRotations::GetRotation(Camera::Position position)
         case Camera::Position::InteriorLookLeft: return Rotations[4];
         case Camera::Position::InteriorLookUpMiddle: return Rotations[5];
     };
+
+    return Rotations[0];
 }
 
 Camera::Position DefaultRotations::GetPosition(float rotation)
