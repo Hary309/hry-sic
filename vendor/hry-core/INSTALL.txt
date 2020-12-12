@@ -1,0 +1,1 @@
+Download hry-core-sdk from https://hary309.github.io/projects/hry-plugins/hry-core and extract here

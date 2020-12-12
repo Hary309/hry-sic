@@ -10,3 +10,5 @@ deploy/installer/*.zip
 deploy/installer/*.exe
 deploy/portable/plugins
 deploy/portable/*.zip
+vendor/hry-core/*
+!vendor/hry-core/INSTALL.txt
