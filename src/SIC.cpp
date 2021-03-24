@@ -218,7 +218,7 @@ void SIC::fillPluginInfo()
     _pluginInfo.fullName = "Smooth Interior Camera";
     _pluginInfo.authorInfo = { "Piotr Krupa", "piotrkrupa06@gmail.com" };
     _pluginInfo.website = "https://hary309.github.io/projects/hry-plugins/hry-sic";
-    _pluginInfo.version = { 2, 0, 1 };
+    _pluginInfo.version = { 2, 0, 2 };
     _pluginInfo.desc = R"(
 ## About
 hry-sic improves interior camera by adding smooth rotation animation.
