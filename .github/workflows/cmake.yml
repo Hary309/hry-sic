@@ -14,7 +14,7 @@ jobs:
         with:
           workflow: cmake.yml
           name: hry-core-sdk
-          path: vendor/hry-core
+          path: ${{github.workspace}}/vendor/hry-core
           repo: Hary309/hry-core
 
       - name: Create Build Environment
