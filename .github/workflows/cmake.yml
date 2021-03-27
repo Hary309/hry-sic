@@ -46,7 +46,7 @@ jobs:
         run: |
           mkdir -p manual/plugins manual/plugins/hry_plugins manual/plugins/hry_assets
           cp vendor/hry-core/bin/release/hry-core.dll manual/plugins
-          cp build/Release/hry-core.dll manual/plugins/hry_plugins
+          cp build/Release/hry-sic.dll manual/plugins/hry_plugins
           cp -r vendor/hry-core/assets manual/plugins/hry_assets
 
       - name: Upload manual installation
