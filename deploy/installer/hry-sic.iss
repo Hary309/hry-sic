@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=C:\Projects\git\hry-sic\deploy\installer
+OutputDir=.
 OutputBaseFilename=hry-sic
 Compression=lzma
 SolidCompression=yes
@@ -45,13 +45,13 @@ Name: "ats"; Description: "Install for American Truck Simulator"; Types: full at
 
 [Files]
 Source: "..\..\vendor\hry-core\bin\release\hry-core.dll"; DestDir: "{code:GetETS2BinDir}\plugins"; Flags: ignoreversion; Check: CheckInstallETS2
-Source: "..\..\build\hry-sic.dll"; DestDir: "{code:GetETS2BinDir}\plugins\hry_plugins"; Flags: ignoreversion; Check: CheckInstallETS2
+Source: "..\..\build\Release\hry-sic.dll"; DestDir: "{code:GetETS2BinDir}\plugins\hry_plugins"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\vendor\hry-core\assets\icons.ttf"; DestDir: "{code:GetETS2BinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\vendor\hry-core\assets\OpenSans-Bold.ttf"; DestDir: "{code:GetETS2BinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallETS2
 Source: "..\..\vendor\hry-core\assets\OpenSans-Regular.ttf"; DestDir: "{code:GetETS2BinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallETS2
 
 Source: "..\..\vendor\hry-core\bin\release\hry-core.dll"; DestDir: "{code:GetATSBinDir}\plugins"; Flags: ignoreversion; Check: CheckInstallATS
-Source: "..\..\build\hry-sic.dll"; DestDir: "{code:GetATSBinDir}\plugins\hry_plugins"; Flags: ignoreversion; Check: CheckInstallATS
+Source: "..\..\build\Release\hry-sic.dll"; DestDir: "{code:GetATSBinDir}\plugins\hry_plugins"; Flags: ignoreversion; Check: CheckInstallATS
 Source: "..\..\vendor\hry-core\assets\icons.ttf"; DestDir: "{code:GetATSBinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallATS
 Source: "..\..\vendor\hry-core\assets\OpenSans-Bold.ttf"; DestDir: "{code:GetATSBinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallATS
 Source: "..\..\vendor\hry-core\assets\OpenSans-Regular.ttf"; DestDir: "{code:GetATSBinDir}\plugins\hry_assets"; Flags: ignoreversion; Check: CheckInstallATS
