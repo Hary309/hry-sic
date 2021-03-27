@@ -45,9 +45,9 @@ jobs:
         shell: bash
         run: |
           mkdir -p manual/plugins manual/plugins/hry_plugins manual/plugins/hry_assets
-          mv vendor/hry-core/bin/release/hry-core.dll manual/plugins
-          mv build/Release/hry-sic.dll manual/plugins/hry_plugins
-          mv vendor/hry-core/assets manual/plugins/hry_assets
+          cp vendor/hry-core/bin/release/hry-core.dll manual/plugins
+          cp build/Release/hry-sic.dll manual/plugins/hry_plugins
+          cp -r vendor/hry-core/assets/* manual/plugins/hry_assets
 
       - name: Upload manual installation
         uses: actions/upload-artifact@v2
