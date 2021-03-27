@@ -59,3 +59,9 @@ jobs:
         working-directory: deploy/installer
         shell: bash
         run: ISCC hry-sic.iss
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v2
+        with:
+          name: hry-sic-installer
+          path: ${{github.workspace}}/deploy/installer/hry-sic.exe
