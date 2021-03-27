@@ -29,3 +29,33 @@ jobs:
         working-directory: ${{github.workspace}}/build
         shell: bash
         run: cmake --build . --config Release --target hry-sic -j 16
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: hry-sic-binary
+          path: ${{github.workspace}}/build/Release/hry-sic.dll
+
+  generate-installer:
+    runs-on: windows-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download hry-core
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: cmake.yml
+          name: hry-core-sdk
+          path: ${{github.workspace}}/vendor/hry-core
+          repo: Hary309/hry-core
+
+      - name: Download hry-sic binary
+        uses: actions/download-artifact@v2
+        with:
+          name: hry-sic-binary
+
+      - name: Run InnoSetup Compiler
+        working-directory: deploy/installer
+        shell: bash
+        run: ISCC hry-sic.iss
