@@ -28,4 +28,4 @@ jobs:
       - name: Build
         working-directory: ${{github.workspace}}/build
         shell: bash
-        run: cmake --build . --config Release --target hry-core -j 16
+        run: cmake --build . --config Release --target hry-sic -j 16
