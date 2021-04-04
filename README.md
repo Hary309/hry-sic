@@ -6,6 +6,8 @@
 
 Smooth Interior Camera is mod that improves interior camera by adding smooth rotation animation.
 
+This mod is based on [hry-core](https://github.com/Hary309/hry-core) - a small framework for creating mods for ETS 2 and ATS.
+
 Keep it in mind that this is still in beta, so it may cause some bug or crashes, look at `How to report a bug/crash` to report such thing.
 
 ## [Download](https://hary309.github.io/projects/hry-plugins/hry-sic)
