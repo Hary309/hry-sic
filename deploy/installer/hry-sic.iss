@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Smooth Interior Camera"
-#define MyAppVersion "2.0.3"
+#define MyAppVersion "2.0.4"
 #define MyAppPublisher "Piotr Krupa"
 #define MyAppURL "https://hary309.github.io/projects/hry-plugins/hry-sic"
 
