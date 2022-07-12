@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Smooth Interior Camera"
-#define MyAppVersion "2.0.5"
+#define MyAppVersion "2.0.6"
 #define MyAppPublisher "Piotr Krupa"
 #define MyAppURL "https://hary309.github.io/projects/hry-plugins/hry-sic"
 
@@ -85,7 +85,7 @@ begin
 
   ATSDirPage.Add('ATS Main directory');
   ATSDirPage.Values[0] := GetPreviousData('ATSDirectory', '');
-  
+
   ETS2DirPage := CreateInputDirPage(
     wpSelectComponents, 'Select Euro Truck Simulator 2 main directory', 'Where Euro Truck Simulator 2 is installed?', '', False, '');
 
@@ -102,7 +102,7 @@ begin
     InstallETS2 := WizardIsComponentSelected('ets2');
     Result := not InstallETS2;
   end;
-  
+
   if PageID = ATSDirPage.ID then
   begin
     InstallATS := WizardIsComponentSelected('ats');
