@@ -7,10 +7,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Download hry-core
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v4
         with:
           workflow: cmake.yml
           name: hry-core-sdk
@@ -36,7 +36,7 @@ jobs:
         run: ISCC hry-sic.iss
 
       - name: Upload installer
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: hry-sic-installer
           path: ${{github.workspace}}/deploy/installer/hry-sic.exe
@@ -50,7 +50,7 @@ jobs:
           cp -r vendor/hry-core/assets/* manual/plugins/hry_assets
 
       - name: Upload manual installation
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: hry-sic-manual-installation
           path: manual/*
