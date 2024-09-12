@@ -6,7 +6,7 @@ add_subdirectory(vendor)
 
 use_static_linking()
 
-project(hry-sic VERSION 2.0.6)
+project(hry-sic VERSION 2.0.7)
 
 file(GLOB_RECURSE hry-sic-src src/*.cpp src/*.hpp)
 add_library(hry-sic SHARED ${hry-sic-src})

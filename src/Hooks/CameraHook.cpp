@@ -37,8 +37,8 @@ bool CameraHook::Install()
     hry::pattern functionPattern(
         std::string_view("48 83 ? ?  48 8B ?  45 32 ?  48 8B ? ? ? ? ?  48 ? ?  74"));
     hry::pattern dataFieldsPattern(
-        std::string_view("F3 0F 10 ? ? ? 00 00  F3 0F 10 ? ? ? 00 00  83 F8 01  75 ?  F3 0F 11 ? ? "
-                         "? 00 00  F3 0F 11 ? ? ? 00 00  89 9F ? ? 00 00  E9 ? ? 00 00"));
+        std::string_view("F3 0F 10 ? ? ? 00 00  F3 0F 10 ? ? ? 00 00  83 F8 01  75 ?  F3 0F 11 ? ? ? 00 00  F3 0F 11 ? ? ? 00 00"));
+
 
     SIC::Logger->info("Searching for pattern...");
 
