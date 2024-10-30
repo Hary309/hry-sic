@@ -2,6 +2,8 @@
 
 [![GitHub release](https://img.shields.io/github/release/Harry09/Smooth-Interior-Camera.svg)](https://github.com/Harry09/Smooth-Interior-Camera/releases/tag/1.3.1.0)
 
+# SCS Software has officially added features from my mod to the game in the 1.53 update, so I've decided to retire the project. The mod is compatible with game versions up to 1.52.
+
 ## About
 
 Smooth Interior Camera is mod that improves interior camera by adding smooth rotation animation.
